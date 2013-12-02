@@ -47,4 +47,20 @@ You can pass the constructor an options object with the following properites:
 * `copyItem`
 * `makeDirectory`
 
+## Development
+
+
+```bash
+$ git clone https://github.com/codio/node-codio.git
+$ cd node-codio
+$ npm install
+```
+
+Start developing, tests can be run via `grunt test` and `grunt watch`
+runs unit tests on save. Before commiting any changes make sure to run the
+default `grunt` task to execute jshint and all unit tests.
+
+
+
 [codio/server]: https://github.com/codio/server
+
