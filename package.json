@@ -1,0 +1,31 @@
+{
+  "name": "node-codio",
+  "version": "0.0.1",
+  "description": "Codio API",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "./node_modules/.bin/grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codio/node-codio.git"
+  },
+  "author": "Codio <support@codio.com>",
+  "bugs": {
+    "url": "https://github.com/codio/node-codio/issues"
+  },
+  "engines": {
+    "node": "~0.10"
+  },
+  "devDependencies": {
+    "grunt-notify": "~0.2.16",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-simple-mocha": "~0.4.0",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2"
+  },
+  "dependencies": {
+    "lodash": "~2.4.0"
+  }
+}
