@@ -7,7 +7,7 @@ API to connect to [codio/server] from a node.js client.
 ## Usage
 
 ```js
-var API = require('api');
+var API = require('node-codio');
 
 var api = new API(options);
 
