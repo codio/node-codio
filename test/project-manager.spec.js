@@ -93,5 +93,35 @@ describe('ProjectManager', function () {
                 );
             });
         });
+        describe('getBrojectByName', function () {
+            it('calls the correct request', function () {
+                var cb = sinon.spy();
+                var project = {
+                    guid: 'guid',
+                    name: 'name',
+                    description: 'desc',
+                    is_public: false,
+                    permissions: {}
+                };
+                psm.updateProject(project, {
+                    owner: 'owner',
+                    session: 'id'
+                }, cb);
+
+                expect(request).to.have.been.calledWithExactly(
+                    {origin: 'origin'},
+                    'ProjectManager',
+                    'updateProject',
+                    {
+                        account: 'owner',
+                        project: project
+                    },
+                    {
+                        session_id: 'id'
+                    },
+                    cb
+                );
+            });
+        });
     });
 });
