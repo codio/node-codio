@@ -10,8 +10,7 @@ describe('ProjectManager', function () {
     var info = {
         user: 'user',
         project: 'project',
-        session: 'id',
-        branch: 'branch'
+        session: 'id'
     };
 
     it('should be instantiable', function () {
@@ -42,8 +41,7 @@ describe('ProjectManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });

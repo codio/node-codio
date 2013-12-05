@@ -10,8 +10,7 @@ describe('ProjectStructureManager', function () {
     var info = {
         user: 'user',
         project: 'project',
-        session: 'id',
-        branch: 'branch'
+        session: 'id'
     };
 
     it('should be instantiable', function () {
@@ -45,8 +44,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -68,8 +66,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -90,8 +87,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -112,8 +108,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -135,8 +130,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -158,8 +152,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
@@ -180,8 +173,7 @@ describe('ProjectStructureManager', function () {
                     {
                         session_id: 'id'
                     },
-                    cb,
-                    'branch'
+                    cb
                 );
             });
         });
