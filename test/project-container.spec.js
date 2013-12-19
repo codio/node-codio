@@ -17,7 +17,7 @@ describe('ContainerManager', function () {
         var cm;
         beforeEach(function () {
             request.reset();
-            cm = new ContainerManager({containerSecretKey: '1'}, function(){ return '1';});
+            cm = new ContainerManager({containerSecretKey: '1'}, function () { return '1'; });
         });
 
         describe('start', function () {
