@@ -6,6 +6,7 @@ var url = require('url');
 
 var ProjectManager = require('./lib/project-manager');
 var ProjectStructureManager = require('./lib/project-structure-manager');
+var ContainerManager = require('./lib/container-manager');
 
 
 
@@ -22,5 +23,6 @@ module.exports = function (options) {
 
     this.projectManager = new ProjectManager(this.options);
     this.projectStructureManager = new ProjectStructureManager(this.options);
+    this.containerManager = new ContainerManager(this.options);
 };
 
