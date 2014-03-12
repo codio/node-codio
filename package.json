@@ -23,7 +23,10 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-simple-mocha": "~0.4.0",
     "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.7.2"
+    "grunt-contrib-jshint": "~0.7.2",
+    "chai": "~1.8.1",
+    "sinon-chai": "~2.4.0",
+    "sandboxed-module": "~0.0.3"
   },
   "dependencies": {
     "lodash": "~2.4.0"
