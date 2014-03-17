@@ -1,0 +1,24 @@
+box: wercker/nodejs
+
+steps:
+  - wercker/grunt@0.0.9
+  - dignifiedquire/flowdock-notify@1.0.2
+
+build:
+  steps:
+    - npm-install
+    - grunt:
+        tasks: default
+
+    # A custom script step, name value is used in the UI
+    # and the code value contains the command that get executed
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+  after-steps:
+    - dignifiedquire/flowdock-notify:
+        token: $FLOWDOCK_TOKEN
+        from_address: werckerbot@codio.com
