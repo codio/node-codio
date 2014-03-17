@@ -1,8 +1,14 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
+var req = {
+    request: sinon.stub(),
+    pingTaskStatus: sinon.stub()
+};
+
+var request = req.request;
+
 var ContainerManager = Sandbox.require('../lib/container-manager', {
-    requires: {'./request': request}
+    requires: {'./request': req}
 });
 
 describe('ContainerManager', function () {
@@ -25,7 +31,7 @@ describe('ContainerManager', function () {
                 var cb = sinon.spy();
                 cm.start('test/test', cb);
 
-                expect(request).to.have.been.calledWithExactly(
+                expect(request).to.have.been.calledWith(
                     {containerSecretKey: '1'},
                     'ContainerManager',
                     'start',
@@ -35,8 +41,7 @@ describe('ContainerManager', function () {
                         token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
                     },
                     {
-                    },
-                    cb
+                    }
                 );
             });
         });
@@ -46,7 +51,7 @@ describe('ContainerManager', function () {
                 var cb = sinon.spy();
                 cm.stop('test/test', cb);
 
-                expect(request).to.have.been.calledWithExactly(
+                expect(request).to.have.been.calledWith(
                     {containerSecretKey: '1'},
                     'ContainerManager',
                     'stop',
@@ -56,8 +61,7 @@ describe('ContainerManager', function () {
                         token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
                     },
                     {
-                    },
-                    cb
+                    }
                 );
             });
         });

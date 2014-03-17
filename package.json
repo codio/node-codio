@@ -26,7 +26,7 @@
     "grunt-contrib-jshint": "~0.7.2",
     "chai": "~1.8.1",
     "sinon-chai": "~2.4.0",
-    "sandboxed-module": "~0.0.3"
+    "sandboxed-module": "^0.3.0"
   },
   "dependencies": {
     "lodash": "~2.4.0"

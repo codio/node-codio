@@ -1,8 +1,14 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
+var req = {
+    request: sinon.stub(),
+    pingTaskStatus: sinon.stub()
+};
+
+var request = req.request;
+
 var ProjectStructureManager = Sandbox.require('../lib/project-structure-manager', {
-    requires: {'./request': request}
+    requires: {'./request': req}
 });
 
 
@@ -94,7 +100,7 @@ describe('ProjectStructureManager', function () {
         describe('createFile', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                psm.createFile('path', info, cb);
+                psm.createFile('path', null, info, cb);
 
                 expect(request).to.have.been.calledWithExactly(
                     {origin: 'origin'},
@@ -103,7 +109,8 @@ describe('ProjectStructureManager', function () {
                     {
                         userName: 'user',
                         projectName: 'project',
-                        path: 'path'
+                        path: 'path',
+                        template: ''
                     },
                     {
                         session_id: 'id'
