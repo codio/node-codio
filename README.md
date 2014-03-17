@@ -1,5 +1,7 @@
 # Node Codio
 
+[![wercker status](https://app.wercker.com/status/740b1e702348d13653d556d3ba60d11c/m/ "wercker status")](https://app.wercker.com/project/bykey/740b1e702348d13653d556d3ba60d11c)
+
 API to connect to [codio/server] from a node.js client.
 
 
@@ -63,4 +65,3 @@ default `grunt` task to execute jshint and all unit tests.
 
 
 [codio/server]: https://github.com/codio/server
-
