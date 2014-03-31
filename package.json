@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -18,17 +18,20 @@
   "engines": {
     "node": "~0.10"
   },
-  "devDependencies": {
-    "grunt-notify": "~0.2.16",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-simple-mocha": "~0.4.0",
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.7.2",
-    "chai": "~1.8.1",
-    "sinon-chai": "~2.4.0",
-    "sandboxed-module": "^0.3.0"
-  },
   "dependencies": {
-    "lodash": "~2.4.0"
+    "assert-plus": "^0.1.5",
+    "lodash": "^2.4.0",
+    "request": "^2.34.0",
+    "verror": "^1.4.0"
+  },
+  "devDependencies": {
+    "grunt-notify": "^0.2.16",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt-simple-mocha": "^0.4.0",
+    "grunt": "^0.4.2",
+    "grunt-contrib-jshint": "^0.7.2",
+    "chai": "^1.9.1",
+    "sinon-chai": "^2.5.0",
+    "sandboxed-module": "^0.3.0"
   }
 }
