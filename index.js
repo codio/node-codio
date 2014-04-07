@@ -7,7 +7,7 @@ var url = require('url');
 var ProjectManager = require('./lib/project-manager');
 var ProjectStructureManager = require('./lib/project-structure-manager');
 var ContainerManager = require('./lib/container-manager');
-
+var TaskManager = require('./lib/task-manager');
 
 
 module.exports = function (options) {
@@ -24,5 +24,5 @@ module.exports = function (options) {
     this.projectManager = new ProjectManager(this.options);
     this.projectStructureManager = new ProjectStructureManager(this.options);
     this.containerManager = new ContainerManager(this.options);
+    this.taskManager = new TaskManager(this.options);
 };
-

@@ -1,14 +1,9 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var req = {
-    request: sinon.stub(),
-    pingTaskStatus: sinon.stub()
-};
-
-var request = req.request;
+var request = sinon.stub();
 
 var ProjectStructureManager = Sandbox.require('../lib/project-structure-manager', {
-    requires: {'./request': req}
+    requires: {'./request': request}
 });
 
 
@@ -77,7 +72,7 @@ describe('ProjectStructureManager', function () {
             });
         });
         describe('removePath', function () {
-            it('calls the correct request', function () {
+            it('works with a string', function () {
                 var cb = sinon.spy();
                 psm.removePath('path', info, cb);
 
@@ -89,6 +84,25 @@ describe('ProjectStructureManager', function () {
                         userName: 'user',
                         projectName: 'project',
                         path: ['path'],
+                    },
+                    {
+                        session_id: 'id'
+                    },
+                    cb
+                );
+            });
+            it('works with an array of paths', function () {
+                var cb = sinon.spy();
+                psm.removePath(['path1', 'path2'], info, cb);
+
+                expect(request).to.have.been.calledWithExactly(
+                    {origin: 'origin'},
+                    'ProjectStructureManager',
+                    'removePath',
+                    {
+                        userName: 'user',
+                        projectName: 'project',
+                        path: ['path1', 'path2'],
                     },
                     {
                         session_id: 'id'
@@ -122,7 +136,7 @@ describe('ProjectStructureManager', function () {
         describe('moveItem', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                psm.moveItem('srcPath', 'destPath', info, cb);
+                psm.moveItem(['srcPath'], ['destPath'], info, cb);
 
                 expect(request).to.have.been.calledWithExactly(
                     {origin: 'origin'},
@@ -131,8 +145,8 @@ describe('ProjectStructureManager', function () {
                     {
                         userName: 'user',
                         projectName: 'project',
-                        sourcePath: 'srcPath',
-                        destinationPath: 'destPath'
+                        sourcePath: ['srcPath'],
+                        destinationPath: ['destPath']
                     },
                     {
                         session_id: 'id'
