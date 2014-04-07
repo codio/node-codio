@@ -1,9 +1,14 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
+var req = {
+    request: sinon.stub(),
+    pingTaskStatus: sinon.stub()
+};
+
+var request = req.request;
 
 var ProjectManager = Sandbox.require('../lib/project-manager', {
-    requires: {'./request': request}
+    requires: {'./request': req}
 });
 
 

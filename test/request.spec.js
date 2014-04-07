@@ -1,95 +1,38 @@
-/* global describe, it, expect */
+/* global Sandbox, describe, it, expect,  sinon */
 
 var http = require('http');
-var querystring = require('querystring');
+var https = require('http');
 
-var request = require('../lib/request');
+var noop = function () {};
 
-function fakeHttpServer(json, code, callback) {
-    return http.createServer(function (req, res) {
-        var body = '';
-        req.on('data', function (chunk) {
-            body += chunk;
-        });
-        req.on('end', function () {
-            res.writeHead(code, {'Content-Type': 'application/json'});
-            if (body) {
-                body = querystring.parse(body);
-                body.acrequest = JSON.parse(body.acrequest);
-            }
-            if (callback) {
-                callback(body, req);
-            }
-            res.end(JSON.stringify(json));
-        });
-    });
-}
+var request = Sandbox.require('../lib/request', {
+    requires: {
+        'http': http,
+        'https': https
+    }
+});
+
 
 describe('request', function () {
-    var server;
-    it('should exits', function () {
-        expect(request).to.be.a('function');
-    });
-    it('makes a simple http call', function (done) {
-        server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
-            expect(req.method).to.be.eql('POST');
-            expect(req.url).to.be.eql('/manager/stuff');
+    describe('request', function () {
+        it('should exits', function () {
+            expect(request.request).to.be.a('function');
         });
-        server.listen(1234);
-        request({
-            hostname: 'localhost',
-            port: 1234,
-            path: '/manager/stuff'
-        }, 'object', 'method', {}, {}, function (err, body) {
-            if (err) {
-                throw err;
-            }
-            expect(body).to.be.eql({msg: 'ok'});
-            server.close();
-            done();
+        it('makes a simple http call', function () {
+            var on = sinon.spy();
+            var write = sinon.spy();
+            var end = sinon.spy();
+            sinon.stub(http, 'request').returns({on: on, write: write, end: end});
+
+            request.request({}, 'hello', 'world', {}, {}, noop, 'branch');
+
+            expect(http.request).to.have.been.calledOnce;
+            expect(on).to.have.been.calledWith('error');
+            expect(write).to.have.been.calledOnce;
+            expect(write).to.have.been.calledOnce;
         });
     });
-    it('sends passed in content', function (done) {
-        server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
-            expect(req.method).to.be.eql('POST');
-            expect(req.url).to.be.eql('/manager/stuff');
-            expect(body.acrequest).to.be.eql({
-                object: 'object',
-                method: 'method',
-                data: {my: 'data'},
-                params: {some: 'params'}
-            });
-        });
-        server.listen(1234);
-        request({
-            hostname: 'localhost',
-            port: 1234,
-            path: '/manager/stuff'
-        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err, body) {
-            expect(err).to.not.exist;
-            expect(body).to.be.eql({msg: 'ok'});
-            server.close();
-            done();
-        });
-    });
-    it('sends anon cookie when passed in the options', function (done) {
-        server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
-            expect(req.method).to.be.eql('POST');
-            expect(req.url).to.be.eql('/manager/stuff');
-            expect(req.headers.cookie).to.be.eql('crafted_anonymous=anonsession');
-        });
-        server.listen(1234);
-        request({
-            hostname: 'localhost',
-            port: 1234,
-            path: '/manager/stuff'
-        }, 'object', 'method', {my: 'data'}, {
-            session_id: '{"anon": "anonsession", "session": "id"}'
-        }, function (err, body) {
-            expect(err).to.not.exist;
-            expect(body).to.be.eql({msg: 'ok'});
-            server.close();
-            done();
-        });
+    describe('pingTaskStatus', function () {
+        expect(request.pingTaskStatus).to.be.a('function');
     });
 });

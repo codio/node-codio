@@ -36,32 +36,18 @@ You can pass the constructor an options object with the following properites:
 ### ProjectManager
 
 * `getProjectByName`
-* `getProjectForListener`
 * `checkPermissionForUser`
 * `checkPermissionForProject`
-* `updateProject`
 
 ### ProjectStructureManager
 
 * `getFile`
-* `getFileForListener`
 * `updateFile`
 * `removePath`
 * `createFile`
 * `moveItem`
 * `copyItem`
 * `makeDirectory`
-
-### ContainerManager
-
-* `start`
-* `stop`
-* `info`
-
-### TaskManager
-
-* `getTaskStatus`
-* `pingTaskStatus`
 
 ## Development
 
