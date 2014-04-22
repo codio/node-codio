@@ -92,4 +92,22 @@ describe('request', function () {
             done();
         });
     });
+
+    it('should call error callback', function (done) {
+        server = fakeHttpServer({code: 0, response: {message: 'error'}, source: 'ACv2.Server.Core'}, 200, function (body, req) {
+            expect(req.method).to.be.eql('POST');
+            expect(req.url).to.be.eql('/manager/stuff');
+        });
+        server.listen(1234);
+        request({
+            hostname: 'localhost',
+            port: 1234,
+            path: '/manager/stuff'
+        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err) {
+            expect(err.message).to.be.eql('Got error from ACv2.Server.Core: error');
+            server.close();
+            done();
+        });
+    });
+
 });
