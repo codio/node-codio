@@ -1,6 +1,6 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
+var request = {};
 request.signed = sinon.stub();
 
 var SshManager = Sandbox.require('../lib/ssh-manager', {
@@ -10,23 +10,23 @@ var SshManager = Sandbox.require('../lib/ssh-manager', {
 
 describe('SshManager', function () {
     it('should be instantiate', function () {
-        var psm = new SshManager({origin: 'origin'});
-        expect(psm).to.be.an.instanceof(SshManager);
-        expect(psm.options).to.be.eql({origin: 'origin'});
+        var ssh = new SshManager({origin: 'origin'});
+        expect(ssh).to.be.an.instanceof(SshManager);
+        expect(ssh.options).to.be.eql({origin: 'origin'});
     });
 
     describe('api methods', function () {
-        var psm;
+        var ssh;
 
         beforeEach(function () {
             request.signed.reset();
-            psm = new SshManager({origin: 'origin'});
+            ssh = new SshManager({origin: 'origin'});
         });
 
         describe('getSshConnectDetails', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                psm.getSshConnectDetails('user', 'container', cb);
+                ssh.getSshConnectDetails('user', 'container', cb);
 
                 expect(request.signed).to.have.been.calledWith(
                     {origin: 'origin'},
@@ -36,8 +36,7 @@ describe('SshManager', function () {
                         container: 'container',
                         userName: 'user'
                     },
-                    {},
-                    cb
+                    {}
                 );
             });
         });
@@ -45,7 +44,7 @@ describe('SshManager', function () {
         describe('getMySshConnectDetails', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                psm.getMySshConnectDetails('session', 'container', cb);
+                ssh.getMySshConnectDetails('session', 'container', cb);
 
                 expect(request.signed).to.have.been.calledWith(
                     {origin: 'origin'},
@@ -54,8 +53,7 @@ describe('SshManager', function () {
                     {
                         container: 'container',
                     },
-                    { session_id: 'session' },
-                    cb
+                    { session_id: 'session' }
                 );
             });
         });
@@ -63,7 +61,7 @@ describe('SshManager', function () {
         describe('getHostDetailsBySsh', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                psm.getHostDetailsBySsh('host', 'port', cb);
+                ssh.getHostDetailsBySsh('host', 'port', cb);
 
                 expect(request.signed).to.have.been.calledWith(
                     {origin: 'origin'},
@@ -73,8 +71,7 @@ describe('SshManager', function () {
                         host: 'host',
                         port: 'port'
                     },
-                    {},
-                    cb
+                    {}
                 );
             });
         });
