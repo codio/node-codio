@@ -2,6 +2,7 @@
 
 var http = require('http');
 var querystring = require('querystring');
+var crypto = require('crypto');
 
 var request = require('../lib/request');
 
@@ -30,6 +31,11 @@ describe('request', function () {
     it('should exits', function () {
         expect(request).to.be.a('function');
     });
+
+    it('should signed exits', function () {
+        expect(request.signed).to.be.a('function');
+    });
+
     it('makes a simple http call', function (done) {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
             expect(req.method).to.be.eql('POST');
@@ -110,4 +116,28 @@ describe('request', function () {
         });
     });
 
+    it('should generate proper sign', function (done) {
+        server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
+            expect(req.headers).to.have.property('x-codio-sign-timestamp').with.length(13);
+            var shasum = crypto.createHash('sha1');
+            var signature = shasum.update(req.headers['x-codio-sign-timestamp'] +
+                JSON.stringify({
+                    object: 'object',
+                    method: 'method',
+                    data: {my: 'data'},
+                    params: {some: 'params'}
+                }) + '123').digest('hex');
+            expect(req.headers).to.have.property('x-codio-sign').to.be.eql(signature);
+        });
+        server.listen(1234);
+        request.signed({
+            hostname: 'localhost',
+            port: 1234,
+            path: '/manager/stuff',
+            remoteSecretKey: '123'
+        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err) {
+            server.close();
+            done();
+        });
+    });
 });
