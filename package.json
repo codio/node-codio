@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -33,5 +33,6 @@
     "chai": "^1.9.1",
     "sinon-chai": "^2.5.0",
     "sandboxed-module": "^0.3.0"
-  }
+  },
+  "license": "MIT"
 }
