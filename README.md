@@ -35,6 +35,9 @@ You can pass the constructor an options object with the following properites:
 
 ## Available Methods
 
+### AccountManager
+
+* `getMyInfo`
 
 ### ProjectManager
 

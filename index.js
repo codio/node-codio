@@ -9,6 +9,7 @@ var ProjectStructureManager = require('./lib/project-structure-manager');
 var ContainerManager = require('./lib/container-manager');
 var TaskManager = require('./lib/task-manager');
 var SshManager = require('./lib/ssh-manager');
+var AccountManager = require('./lib/account-manager');
 
 
 module.exports = function (options) {
@@ -27,5 +28,5 @@ module.exports = function (options) {
     this.containerManager = new ContainerManager(this.options);
     this.taskManager = new TaskManager(this.options);
     this.sshManager = new SshManager(this.options);
-
+    this.accountManager = new AccountManager(this.options);
 };
