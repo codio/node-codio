@@ -71,6 +71,28 @@ describe('ProjectStructureManager', function () {
                 );
             });
         });
+        describe('updateFileWithOt', function () {
+            it('calls the correct request', function () {
+                var cb = sinon.spy();
+                psm.updateFileWithOt('path', ['1'], info, cb);
+
+                expect(request).to.have.been.calledWithExactly(
+                    {origin: 'origin'},
+                    'ProjectStructureManager',
+                    'updateFileWithOt',
+                    {
+                        userName: 'user',
+                        projectName: 'project',
+                        path: 'path',
+                        ops: ['1']
+                    },
+                    {
+                        session_id: 'id'
+                    },
+                    cb
+                );
+            });
+        });
         describe('removePath', function () {
             it('works with a string', function () {
                 var cb = sinon.spy();
