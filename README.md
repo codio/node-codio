@@ -59,6 +59,12 @@ You can pass the constructor an options object with the following properites:
 * `copyItem`
 * `makeDirectory`
 
+### Organizations Manager
+
+* `getById`
+* `getByName`
+* `createTeam`
+
 ### ContainerManager
 
 * `start`
