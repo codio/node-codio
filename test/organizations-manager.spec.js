@@ -88,6 +88,7 @@ describe('OrganizationsManager', function () {
                 );
             });
         });
+
         describe('createTeam', function () {
             it('throws when name is not a string', function () {
                 expect(function () {
@@ -128,6 +129,33 @@ describe('OrganizationsManager', function () {
                         description: 'desc',
                         memberIds: ['a', 'b', 'c']
                     },
+                    {
+                        session_id: 'session'
+                    }
+                );
+            });
+        });
+
+        describe('getMyOrganizations', function () {
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    om.getMyOrganizations(null, noop);
+                }).toThrow;
+            });
+            it('throws when callback is not a function', function () {
+                expect(function () {
+                    om.getMyOrganizations('world');
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+                var cb = sinon.spy();
+                om.getMyOrganizations('session', cb);
+
+                expect(request).to.have.been.calledWith(
+                    {},
+                    'OrganizationsManager',
+                    'getMyOrganizations',
+                    {},
                     {
                         session_id: 'session'
                     }
