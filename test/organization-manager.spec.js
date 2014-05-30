@@ -3,14 +3,14 @@
 var request = sinon.stub();
 var noop = function () {};
 
-var OrganizationsManager = Sandbox.require('../lib/organizations-manager', {
+var OrganizationManager = Sandbox.require('../lib/organization-manager', {
     requires: {'./request': request}
 });
 
-describe('OrganizationsManager', function () {
+describe('OrganizationManager', function () {
     it('should be instantiable', function () {
-        var om = new OrganizationsManager({origin: 'origin'});
-        expect(om).to.be.an.instanceof(OrganizationsManager);
+        var om = new OrganizationManager({origin: 'origin'});
+        expect(om).to.be.an.instanceof(OrganizationManager);
         expect(om.options).to.be.eql({origin: 'origin'});
     });
 
@@ -18,7 +18,7 @@ describe('OrganizationsManager', function () {
         var om;
         beforeEach(function () {
             request.reset();
-            om = new OrganizationsManager({});
+            om = new OrganizationManager({});
         });
 
         describe('getById', function () {
@@ -43,7 +43,7 @@ describe('OrganizationsManager', function () {
 
                 expect(request).to.have.been.calledWith(
                     {},
-                    'OrganizationsManager',
+                    'OrganizationManager',
                     'get',
                     {
                         id: 'my id'
@@ -77,7 +77,7 @@ describe('OrganizationsManager', function () {
 
                 expect(request).to.have.been.calledWith(
                     {},
-                    'OrganizationsManager',
+                    'OrganizationManager',
                     'get',
                     {
                         name: 'my name'
@@ -121,7 +121,7 @@ describe('OrganizationsManager', function () {
 
                 expect(request).to.have.been.calledWith(
                     {},
-                    'OrganizationsManager',
+                    'OrganizationManager',
                     'createTeam',
                     {
                         name: 'my team',
@@ -153,7 +153,7 @@ describe('OrganizationsManager', function () {
 
                 expect(request).to.have.been.calledWith(
                     {},
-                    'OrganizationsManager',
+                    'OrganizationManager',
                     'getMyOrganizations',
                     {},
                     {

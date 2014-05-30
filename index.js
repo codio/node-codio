@@ -10,7 +10,7 @@ var ContainerManager = require('./lib/container-manager');
 var TaskManager = require('./lib/task-manager');
 var SshManager = require('./lib/ssh-manager');
 var AccountManager = require('./lib/account-manager');
-var OrganizationsManager = require('./lib/organizations-manager');
+var OrganizationManager = require('./lib/organization-manager');
 
 
 module.exports = function (options) {
@@ -30,5 +30,5 @@ module.exports = function (options) {
     this.taskManager = new TaskManager(this.options);
     this.sshManager = new SshManager(this.options);
     this.accountManager = new AccountManager(this.options);
-    this.organizationsManager = new OrganizationsManager(this.options);
+    this.organizationManager = new OrganizationManager(this.options);
 };
