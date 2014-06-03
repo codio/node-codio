@@ -11,6 +11,7 @@ var TaskManager = require('./lib/task-manager');
 var SshManager = require('./lib/ssh-manager');
 var AccountManager = require('./lib/account-manager');
 var OrganizationManager = require('./lib/organization-manager');
+var BuildManager = require('./lib/build-manager');
 
 
 module.exports = function (options) {
@@ -31,4 +32,5 @@ module.exports = function (options) {
     this.sshManager = new SshManager(this.options);
     this.accountManager = new AccountManager(this.options);
     this.organizationManager = new OrganizationManager(this.options);
+    this.buildManager = new BuildManager(this.options);
 };
