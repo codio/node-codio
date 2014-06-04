@@ -24,17 +24,22 @@ describe('BuildManager', function () {
         describe('exportZip', function () {
             it('throws when id is not a string', function () {
                 expect(function () {
-                    bm.exportZip({hello: 'world'}, noop);
+                    bm.exportZip(null, 'session', noop);
+                }).toThrow;
+            });
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    bm.exportZip('world', null, noop);
                 }).toThrow;
             });
             it('throws when callback is not a function', function () {
                 expect(function () {
-                    bm.exportZip('world');
+                    bm.exportZip('world', 'session');
                 }).toThrow;
             });
             it('calls the correct request', function () {
                 var cb = sinon.spy();
-                bm.exportZip('id', cb);
+                bm.exportZip('id', 'session', cb);
 
                 expect(request).to.have.been.calledWith(
                     {},
@@ -44,6 +49,7 @@ describe('BuildManager', function () {
                         guid: 'id',
                     },
                     {
+                        session_id: 'session'
                     }
                 );
             });
