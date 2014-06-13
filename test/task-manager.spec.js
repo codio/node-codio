@@ -1,7 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-
-var request = sinon.stub();
+var Promise = require('bluebird');
+var request = sinon.stub().returns(Promise.resolve());
 
 var TaskManager = Sandbox.require('../lib/task-manager', {
     requires: {'./request': request}
@@ -24,84 +24,90 @@ describe('TaskManager', function () {
         describe('getTaskStatus', function () {
             it('throws when id is not a string', function () {
                 expect(function () {
-                    taskManager.getTaskStatus({id: 'hello'}, function () {});
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    taskManager.getTaskStatus('hello');
+                    taskManager.getTaskStatus({id: 'hello'});
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                taskManager.getTaskStatus('id', cb);
+                return taskManager.getTaskStatus('id')
+                .then(function () {
 
-                expect(request).to.have.been.calledWithExactly(
-                    {origin: 'origin'},
-                    'TaskManager',
-                    'getTaskStatus',
-                    {
-                        id: 'id'
-                    },
-                    {},
-                    cb
-                );
+                    expect(request).to.have.been.calledWithExactly(
+                        {origin: 'origin'},
+                        'TaskManager',
+                        'getTaskStatus',
+                        {
+                            id: 'id'
+                        },
+                        {}
+                    );
+                });
             });
         });
         describe('pingTaskStatus', function () {
             it('throws when id is not a string', function () {
                 expect(function () {
-                    taskManager.pingTaskStatus({id: 'hello'}, function () {});
+                    taskManager.pingTaskStatus({id: 'hello'});
                 }).toThrow;
             });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    taskManager.pingTaskStatus('hello');
-                }).toThrow;
-            });
-            it('returns an error when getTaskStatus fails', function (done) {
-                sinon.stub(taskManager, 'getTaskStatus').callsArgWith(1, new Error('error'));
-                taskManager.pingTaskStatus('id', function (err, response) {
-                    expect(err.message).to.be.eql('getTaskStatus failed for: id: error');
+            it('returns an error when getTaskStatus fails', function () {
+                sinon.stub(taskManager, 'getTaskStatus').returns(
+                    Promise.reject(new Error('error'))
+                );
+
+                return taskManager.pingTaskStatus('id')
+                .then(function (response) {
                     expect(response).to.be.Undefined;
-                    done();
+                })
+                .catch(function (err) {
+                    expect(err.message).to.be.eql('error');
                 });
             });
-            it('retries when when still processing', function (done) {
+            it('retries when when still processing', function () {
                 sinon.stub(taskManager, 'getTaskStatus');
-                taskManager.getTaskStatus.onCall(0).callsArgWith(1, null, {
+
+                taskManager.getTaskStatus.onCall(0).returns(Promise.resolve({
                     status: 'PROCESSING'
-                });
-                taskManager.getTaskStatus.onCall(1).callsArgWith(1, null, {
+                }));
+
+                taskManager.getTaskStatus.onCall(1).returns(Promise.resolve({
                     status: 'COMPLETED',
                     result: 'success'
-                });
-                taskManager.pingTaskStatus('id', function (err, response) {
-                    expect(err).to.be.Undefined;
+                }));
+
+                return taskManager.pingTaskStatus('id')
+                .then(function (response) {
+
                     expect(response).to.be.eql('success');
                     expect(taskManager.getTaskStatus).to.have.beenCalledTwice;
-                    done();
                 });
             });
-            it('returns an error when the response status is an error', function (done) {
-                sinon.stub(taskManager, 'getTaskStatus').callsArgWith(1, null, {
+
+            it('returns an error when the response status is an error', function () {
+                sinon.stub(taskManager, 'getTaskStatus').returns(Promise.resolve({
                     status: 'ERROR',
                     errorMessage: 'broken'
-                });
-                taskManager.pingTaskStatus('id', function (err, response) {
-                    expect(err.message).to.be.eql('getTaskStatus returned an error: broken');
+                }));
+
+                return taskManager.pingTaskStatus('id')
+                .then(function (response) {
                     expect(response).to.be.Undefined;
-                    done();
+                })
+                .catch(function (err) {
+                    expect(err.message).to.be.eql('getTaskStatus returned an error: broken');
                 });
             });
-            it('returns an error when the response status is unkown', function (done) {
-                sinon.stub(taskManager, 'getTaskStatus').callsArgWith(1, null, {
+
+            it('returns an error when the response status is unkown', function () {
+                sinon.stub(taskManager, 'getTaskStatus').returns(Promise.resolve({
                     status: 'STRANGE'
-                });
-                taskManager.pingTaskStatus('id', function (err, response) {
-                    expect(err.message).to.be.eql('Unkown response status: STRANGE');
+                }));
+
+                return taskManager.pingTaskStatus('id')
+                .then(function (response) {
                     expect(response).to.be.Undefined;
-                    done();
+                })
+                .catch(function (err) {
+                    expect(err.message).to.be.eql('Unkown response status: STRANGE');
                 });
             });
         });

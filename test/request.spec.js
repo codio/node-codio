@@ -36,26 +36,23 @@ describe('request', function () {
         expect(request.signed).to.be.a('function');
     });
 
-    it('makes a simple http call', function (done) {
+    it('makes a simple http call', function () {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
             expect(req.method).to.be.eql('POST');
             expect(req.url).to.be.eql('/manager/stuff');
         });
         server.listen(1234);
-        request({
+        return request({
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff'
-        }, 'object', 'method', {}, {}, function (err, body) {
-            if (err) {
-                throw err;
-            }
+        }, 'object', 'method', {}, {})
+        .then(function (body) {
             expect(body).to.be.eql({msg: 'ok'});
             server.close();
-            done();
         });
     });
-    it('sends passed in content', function (done) {
+    it('sends passed in content', function () {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
             expect(req.method).to.be.eql('POST');
             expect(req.url).to.be.eql('/manager/stuff');
@@ -67,56 +64,54 @@ describe('request', function () {
             });
         });
         server.listen(1234);
-        request({
+        return request({
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff'
-        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err, body) {
-            expect(err).to.not.exist;
+        }, 'object', 'method', {my: 'data'}, {some: 'params'})
+        .then(function (body) {
             expect(body).to.be.eql({msg: 'ok'});
             server.close();
-            done();
         });
     });
-    it('sends anon cookie when passed in the options', function (done) {
+    it('sends anon cookie when passed in the options', function () {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
             expect(req.method).to.be.eql('POST');
             expect(req.url).to.be.eql('/manager/stuff');
             expect(req.headers.cookie).to.be.eql('crafted_anonymous=anonsession');
         });
         server.listen(1234);
-        request({
+        return request({
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff'
         }, 'object', 'method', {my: 'data'}, {
             session_id: '{"anon": "anonsession", "session": "id"}'
-        }, function (err, body) {
-            expect(err).to.not.exist;
+        })
+        .then(function (body) {
             expect(body).to.be.eql({msg: 'ok'});
             server.close();
-            done();
         });
     });
 
-    it('should call error callback', function (done) {
+    it('should call error callback', function () {
         server = fakeHttpServer({code: 0, response: {message: 'error'}, source: 'ACv2.Server.Core'}, 200, function (body, req) {
             expect(req.method).to.be.eql('POST');
             expect(req.url).to.be.eql('/manager/stuff');
         });
         server.listen(1234);
-        request({
+        return request({
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff'
-        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err) {
+        }, 'object', 'method', {my: 'data'}, {some: 'params'})
+        .catch(function (err) {
             expect(err.message).to.be.eql('Got error from ACv2.Server.Core: error');
             server.close();
-            done();
         });
     });
 
-    it('should generate proper sign', function (done) {
+    it('should generate proper sign', function () {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
             expect(req.headers).to.have.property('x-codio-sign-timestamp').with.length(13);
             var shasum = crypto.createHash('sha1');
@@ -130,14 +125,14 @@ describe('request', function () {
             expect(req.headers).to.have.property('x-codio-sign').to.be.eql(signature);
         });
         server.listen(1234);
-        request.signed({
+        return request.signed({
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff',
             remoteSecretKey: '123'
-        }, 'object', 'method', {my: 'data'}, {some: 'params'}, function (err) {
+        }, 'object', 'method', {my: 'data'}, {some: 'params'})
+        .finally(function () {
             server.close();
-            done();
         });
     });
 });

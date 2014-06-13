@@ -13,9 +13,12 @@ var API = require('node-codio');
 
 var api = new API(options);
 
-api.projectStructureManager.getFile('hello.txt', auth, function (err, data) {
-  if (err) return console.error(err);
+api.projectStructureManager.getFile('hello.txt', auth)
+.then(function (data) {
   console.log('Got data: ', data);
+})
+.catch(function (err) {
+  console.error(err);
 });
 ```
 

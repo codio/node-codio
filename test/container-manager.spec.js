@@ -1,7 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
-var noop = function () {};
+var Promise = require('bluebird');
+var request = sinon.stub().returns(Promise.resolve({message: ''}));
 
 var ContainerManager = Sandbox.require('../lib/container-manager', {
     requires: {'./request': request}
@@ -24,17 +24,11 @@ describe('ContainerManager', function () {
         describe('start', function () {
             it('throws when container is not a string', function () {
                 expect(function () {
-                    cm.start({hello: 'world'}, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    cm.start('world');
+                    cm.start({hello: 'world'});
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                cm.start('test/test', cb);
+                cm.start('test/test');
 
                 expect(request).to.have.been.calledWith(
                     {containerSecretKey: '1'},
@@ -54,17 +48,11 @@ describe('ContainerManager', function () {
         describe('stop', function () {
             it('throws when container is not a string', function () {
                 expect(function () {
-                    cm.stop({hello: 'world'}, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    cm.stop('world');
+                    cm.stop({hello: 'world'});
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                cm.stop('test/test', cb);
+                cm.stop('test/test');
 
                 expect(request).to.have.been.calledWith(
                     {containerSecretKey: '1'},
@@ -83,17 +71,11 @@ describe('ContainerManager', function () {
         describe('info', function () {
             it('throws when container is not a string', function () {
                 expect(function () {
-                    cm.info({hello: 'world'}, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    cm.info('world');
+                    cm.info({hello: 'world'});
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                cm.info('test/test', cb);
+                cm.info('test/test');
 
                 expect(request).to.have.been.calledWith(
                     {containerSecretKey: '1'},
