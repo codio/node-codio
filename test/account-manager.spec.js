@@ -1,7 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
-var noop = function () {};
+var Promise = require('bluebird');
+var request = sinon.stub().returns(Promise.resolve());
 
 var AccountManager = Sandbox.require('../lib/account-manager', {
     requires: {'./request': request}
@@ -24,27 +24,24 @@ describe('AccountManager', function () {
         describe('getMyInfo', function () {
             it('throws when session is not a string', function () {
                 expect(function () {
-                    am.getMyInfo(null, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    am.getMyInfo('world');
+                    am.getMyInfo(null);
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                am.getMyInfo('my id', cb);
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'AccountManager',
-                    'getMyInfo',
-                    {},
-                    {
-                        session_id: 'my id'
-                    }
-                );
+                am.getMyInfo('my id')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'getMyInfo',
+                        {},
+                        {
+                            session_id: 'my id'
+                        }
+                    );
+                });
             });
         });
     });

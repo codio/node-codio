@@ -1,7 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
-var noop = function () {};
+var Promise = require('bluebird');
+var request = sinon.stub().returns(Promise.resolve());
 
 var OrganizationManager = Sandbox.require('../lib/organization-manager', {
     requires: {'./request': request}
@@ -24,17 +24,12 @@ describe('OrganizationManager', function () {
         describe('getById', function () {
             it('throws when id is not a string', function () {
                 expect(function () {
-                    om.getById(null, 'session', noop);
+                    om.getById(null, 'session');
                 }).toThrow;
             });
             it('throws when session is not a string', function () {
                 expect(function () {
-                    om.getById('21', null, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.getById('world');
+                    om.getById('21', null);
                 }).toThrow;
             });
             it('calls the correct request', function () {
@@ -58,81 +53,75 @@ describe('OrganizationManager', function () {
         describe('getByName', function () {
             it('throws when name is not a string', function () {
                 expect(function () {
-                    om.getByName(null, 'session', noop);
+                    om.getByName(null, 'session');
                 }).toThrow;
             });
             it('throws when session is not a string', function () {
                 expect(function () {
-                    om.getByName('21', null, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.getByName('world');
+                    om.getByName('21', null);
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                om.getByName('my name', 'session', cb);
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'OrganizationManager',
-                    'get',
-                    {
-                        name: 'my name'
-                    },
-                    {
-                        session_id: 'session'
-                    }
-                );
+                return om.getByName('my name', 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'get',
+                        {
+                            name: 'my name'
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
             });
         });
 
         describe('createTeam', function () {
             it('throws when name is not a string', function () {
                 expect(function () {
-                    om.createTeam(null, {org: 'a', session: 's'}, noop);
+                    om.createTeam(null, {org: 'a', session: 's'});
                 }).toThrow;
             });
             it('throws when info is not an object', function () {
                 expect(function () {
-                    om.createTeam('21', null, noop);
+                    om.createTeam('21', null);
                 }).toThrow;
             });
             it('throws when orgId is not a string', function () {
                 expect(function () {
-                    om.createTeam(null, {session: 's'}, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.createTeam('world');
+                    om.createTeam(null, {session: 's'});
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                om.createTeam('my team', {
+
+                return om.createTeam('my team', {
                     org: 'orgId',
                     description: 'desc',
                     members: ['a', 'b', 'c'],
                     session: 'session'
-                }, cb);
+                })
+                .then(function () {
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'OrganizationManager',
-                    'createTeam',
-                    {
-                        name: 'my team',
-                        orgId: 'orgId',
-                        description: 'desc',
-                        memberIds: ['a', 'b', 'c']
-                    },
-                    {
-                        session_id: 'session'
-                    }
-                );
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'createTeam',
+                        {
+                            name: 'my team',
+                            orgId: 'orgId',
+                            description: 'desc',
+                            memberIds: ['a', 'b', 'c']
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
             });
         });
 
@@ -140,57 +129,51 @@ describe('OrganizationManager', function () {
 
             it('throws when name is not a string', function () {
                 expect(function () {
-                    om.getTeamByName(null, 'id', 'session', noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.getTeamByName('world', 'id', 'session');
+                    om.getTeamByName(null, 'id', 'session');
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                om.getTeamByName('org', 'team', 'session', cb);
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'OrganizationManager',
-                    'getTeam',
-                    {
-                        orgId: 'org',
-                        teamName: 'team'
-                    },
-                    {
-                        session_id: 'session'
-                    }
-                );
+                return om.getTeamByName('org', 'team', 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'getTeam',
+                        {
+                            orgId: 'org',
+                            teamName: 'team'
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
             });
         });
 
         describe('getMyOrganizations', function () {
             it('throws when session is not a string', function () {
                 expect(function () {
-                    om.getMyOrganizations(null, noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.getMyOrganizations('world');
+                    om.getMyOrganizations(null);
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                om.getMyOrganizations('session', cb);
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'OrganizationManager',
-                    'getMyOrganizations',
-                    {},
-                    {
-                        session_id: 'session'
-                    }
-                );
+                return om.getMyOrganizations('session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'getMyOrganizations',
+                        {},
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
             });
         });
 
@@ -198,32 +181,28 @@ describe('OrganizationManager', function () {
 
             it('throws when team is not an array', function () {
                 expect(function () {
-                    om.isMemberOf('org', 'id', 'session', noop);
-                }).toThrow;
-            });
-            it('throws when callback is not a function', function () {
-                expect(function () {
-                    om.isMemberOf('world', ['id'], 'session');
+                    om.isMemberOf('org', 'id', 'session');
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                var cb = sinon.spy();
-                om.isMemberOf('org', ['1', '2'], 'session', cb);
 
-                expect(request).to.have.been.calledWith(
-                    {},
-                    'OrganizationManager',
-                    'isMemberOf',
-                    {
-                        organization: 'org',
-                        team: ['1', '2']
-                    },
-                    {
-                        session_id: 'session'
-                    }
-                );
+                return om.isMemberOf('org', ['1', '2'], 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'isMemberOf',
+                        {
+                            organization: 'org',
+                            team: ['1', '2']
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
             });
         });
-
     });
 });
