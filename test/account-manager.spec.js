@@ -44,5 +44,38 @@ describe('AccountManager', function () {
                 });
             });
         });
+
+        describe('get', function () {
+            it('throws when id is not a string', function () {
+                expect(function () {
+                    am.get(null, 'session');
+                }).toThrow;
+            });
+
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    am.get('id', null);
+                }).toThrow;
+            });
+
+            it('calls the correct request', function () {
+
+                am.get('id', 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'getAccount',
+                        {
+                            account: 'id'
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
+            });
+        });
     });
 });
