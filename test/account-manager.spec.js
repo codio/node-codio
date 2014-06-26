@@ -68,7 +68,7 @@ describe('AccountManager', function () {
                         'AccountManager',
                         'getAccount',
                         {
-                            account: 'id'
+                            id: 'id'
                         },
                         {
                             session_id: 'session'
