@@ -103,7 +103,8 @@ describe('OrganizationManager', function () {
                     org: 'orgId',
                     description: 'desc',
                     members: ['a', 'b', 'c'],
-                    session: 'session'
+                    session: 'session',
+                    data: {test: true}
                 })
                 .then(function () {
 
@@ -115,7 +116,8 @@ describe('OrganizationManager', function () {
                             name: 'my team',
                             orgId: 'orgId',
                             description: 'desc',
-                            memberIds: ['a', 'b', 'c']
+                            memberIds: ['a', 'b', 'c'],
+                            customData: {test: true}
                         },
                         {
                             session_id: 'session'
