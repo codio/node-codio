@@ -92,6 +92,33 @@ describe('ProjectManager', function () {
                 );
             });
         });
+        describe('getPermissionForProject', function () {
+            it('calls the correct request', function () {
+                var cb = sinon.spy();
+                var cred = {
+                    project: {
+                        owner: 'owner',
+                        name: 'name'
+                    },
+                    session: 'id'
+                };
+                psm.getPermissionForProject(cred, cb);
+
+                expect(request).to.have.been.calledWithExactly(
+                    {origin: 'origin'},
+                    'ProjectManager',
+                    'getPermissionForProject',
+                    {
+                        accountName: 'owner',
+                        projectName: 'name'
+                    },
+                    {
+                        session_id: 'id'
+                    },
+                    cb
+                );
+            });
+        });
         describe('getBrojectByName', function () {
             it('calls the correct request', function () {
                 var cb = sinon.spy();
