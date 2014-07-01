@@ -95,7 +95,6 @@ describe('ProjectManager', function () {
         });
         describe('getPermissionForProject', function () {
             it('calls the correct request', function () {
-                var cb = sinon.spy();
                 var cred = {
                     project: {
                         owner: 'owner',
@@ -103,21 +102,21 @@ describe('ProjectManager', function () {
                     },
                     session: 'id'
                 };
-                psm.getPermissionForProject(cred, cb);
 
-                expect(request).to.have.been.calledWithExactly(
-                    {origin: 'origin'},
-                    'ProjectManager',
-                    'getPermissionForProject',
-                    {
-                        accountName: 'owner',
-                        projectName: 'name'
-                    },
-                    {
-                        session_id: 'id'
-                    },
-                    cb
-                );
+                return psm.getPermissionForProject(cred, function () {
+                    expect(request).to.have.been.calledWithExactly(
+                        {origin: 'origin'},
+                        'ProjectManager',
+                        'getPermissionForProject',
+                        {
+                            accountName: 'owner',
+                            projectName: 'name'
+                        },
+                        {
+                            session_id: 'id'
+                        }
+                    );
+                });
             });
         });
         describe('getBrojectByName', function () {
