@@ -2,9 +2,15 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve({message: ''}));
+var TaskManager = function () {
+    this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
+};
 
 var ContainerManager = Sandbox.require('../lib/container-manager', {
-    requires: {'./request': request}
+    requires: {
+        './request': request,
+        './task-manager': TaskManager
+    }
 });
 
 describe('ContainerManager', function () {
@@ -18,7 +24,9 @@ describe('ContainerManager', function () {
         var cm;
         beforeEach(function () {
             request.reset();
-            cm = new ContainerManager({containerSecretKey: '1'}, function () { return '1'; });
+            cm = new ContainerManager({
+                containerSecretKey: '1'
+            }, function () { return '1'; });
         });
 
         describe('start', function () {
@@ -28,20 +36,21 @@ describe('ContainerManager', function () {
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                cm.start('test/test');
-
-                expect(request).to.have.been.calledWith(
-                    {containerSecretKey: '1'},
-                    'ContainerManager',
-                    'start',
-                    {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
-                    },
-                    {
-                    }
-                );
+                return cm.start('test/test')
+                .then(function () {
+                    expect(request).to.have.been.calledWith(
+                        {containerSecretKey: '1'},
+                        'ContainerManager',
+                        'start',
+                        {
+                            container: 'test/test',
+                            uid: '1',
+                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        },
+                        {
+                        }
+                    );
+                });
             });
         });
 
@@ -52,20 +61,21 @@ describe('ContainerManager', function () {
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                cm.stop('test/test');
-
-                expect(request).to.have.been.calledWith(
-                    {containerSecretKey: '1'},
-                    'ContainerManager',
-                    'stop',
-                    {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
-                    },
-                    {
-                    }
-                );
+                return cm.stop('test/test')
+                .then(function () {
+                    expect(request).to.have.been.calledWith(
+                        {containerSecretKey: '1'},
+                        'ContainerManager',
+                        'stop',
+                        {
+                            container: 'test/test',
+                            uid: '1',
+                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        },
+                        {
+                        }
+                    );
+                });
             });
         });
         describe('info', function () {
@@ -75,20 +85,21 @@ describe('ContainerManager', function () {
                 }).toThrow;
             });
             it('calls the correct request', function () {
-                cm.info('test/test');
-
-                expect(request).to.have.been.calledWith(
-                    {containerSecretKey: '1'},
-                    'ContainerManager',
-                    'info',
-                    {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
-                    },
-                    {
-                    }
-                );
+                return cm.info('test/test')
+                .then(function () {
+                    expect(request).to.have.been.calledWith(
+                        {containerSecretKey: '1'},
+                        'ContainerManager',
+                        'info',
+                        {
+                            container: 'test/test',
+                            uid: '1',
+                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        },
+                        {
+                        }
+                    );
+                });
             });
         });
     });
