@@ -4,18 +4,20 @@ var Promise = require('bluebird');
 var request = sinon.stub();
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
-var taskManager = require('../lib/task-manager');
-sinon.stub(taskManager.prototype, 'pingTaskStatus').returns(Promise.resolve());
+var TaskManager = function () {
+    this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
+};
 
 var SshManager = Sandbox.require('../lib/ssh-manager', {
     requires: {
         './request': request,
-        './task-manager': taskManager
+        './task-manager': TaskManager
     }
 });
 
 
 describe('SshManager', function () {
+
     it('should be instantiate', function () {
         var ssh = new SshManager({origin: 'origin'});
         expect(ssh).to.be.an.instanceof(SshManager);

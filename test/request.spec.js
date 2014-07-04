@@ -15,8 +15,11 @@ function fakeHttpServer(json, code, callback) {
         req.on('end', function () {
             res.writeHead(code, {'Content-Type': 'application/json'});
             if (body) {
-                body = querystring.parse(body);
-                body.acrequest = JSON.parse(body.acrequest);
+                try {
+                    body = querystring.parse(body);
+                    body.acrequest = JSON.parse(body.acrequest);
+
+                } catch (e) {}
             }
             if (callback) {
                 callback(body, req);
@@ -133,6 +136,27 @@ describe('request', function () {
         }, 'object', 'method', {my: 'data'}, {some: 'params'})
         .finally(function () {
             server.close();
+        });
+    });
+
+    describe('request.file', function () {
+        it('uploads a given file', function () {
+            server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
+                expect(req.method).to.be.eql('POST');
+                expect(req.url).to.be.eql('/manager/stuff/file/');
+            });
+            server.listen(1234);
+            return request.file({
+                hostname: 'localhost',
+                port: 1234,
+                path: '/manager/stuff/'
+            }, 'object', 'method', {
+                file: 'hello world'
+            }, {})
+            .then(function (body) {
+                expect(body).to.be.eql({msg: 'ok'});
+                server.close();
+            });
         });
     });
 });
