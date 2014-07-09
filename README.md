@@ -49,6 +49,7 @@ You can pass the constructor an options object with the following properites:
 * `checkPermissionForProject`
 * `getPermissionForProject`
 * `updateProject`
+* `remove`
 
 ### ProjectStructureManager
 

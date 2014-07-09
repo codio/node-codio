@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve());
+request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
 var ProjectManager = Sandbox.require('../lib/project-manager', {
     requires: {'./request': request}
@@ -146,6 +147,25 @@ describe('ProjectManager', function () {
                         {
                             session_id: 'id'
                         }
+                    );
+                });
+            });
+        });
+
+        describe('remove', function () {
+            it('calls the correct request', function () {
+
+                return psm.remove('id')
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWithExactly(
+                        { origin: 'origin'},
+                        'ProjectManager',
+                        'removeProject',
+                        {
+                            guid: 'id'
+                        },
+                        {}
                     );
                 });
             });
