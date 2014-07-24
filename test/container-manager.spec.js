@@ -1,6 +1,6 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
-var request = sinon.stub();
+var request = {signed: sinon.stub()};
 var noop = function () {};
 
 var ContainerManager = Sandbox.require('../lib/container-manager', {
@@ -17,7 +17,7 @@ describe('ContainerManager', function () {
     describe('api methods', function () {
         var cm;
         beforeEach(function () {
-            request.reset();
+            request.signed.reset();
             cm = new ContainerManager({containerSecretKey: '1'}, function () { return '1'; });
         });
 
@@ -36,14 +36,12 @@ describe('ContainerManager', function () {
                 var cb = sinon.spy();
                 cm.start('test/test', cb);
 
-                expect(request).to.have.been.calledWith(
+                expect(request.signed).to.have.been.calledWith(
                     {containerSecretKey: '1'},
                     'ContainerManager',
                     'start',
                     {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        container: 'test/test'
                     },
                     {
                     }
@@ -66,14 +64,12 @@ describe('ContainerManager', function () {
                 var cb = sinon.spy();
                 cm.stop('test/test', cb);
 
-                expect(request).to.have.been.calledWith(
+                expect(request.signed).to.have.been.calledWith(
                     {containerSecretKey: '1'},
                     'ContainerManager',
                     'stop',
                     {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        container: 'test/test'
                     },
                     {
                     }
@@ -95,14 +91,12 @@ describe('ContainerManager', function () {
                 var cb = sinon.spy();
                 cm.info('test/test', cb);
 
-                expect(request).to.have.been.calledWith(
+                expect(request.signed).to.have.been.calledWith(
                     {containerSecretKey: '1'},
                     'ContainerManager',
                     'info',
                     {
-                        container: 'test/test',
-                        uid: '1',
-                        token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                        container: 'test/test'
                     },
                     {
                     }

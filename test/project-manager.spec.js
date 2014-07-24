@@ -1,6 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
 var request = sinon.stub();
+request.signed = sinon.stub();
 
 var ProjectManager = Sandbox.require('../lib/project-manager', {
     requires: {'./request': request}
