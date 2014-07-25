@@ -103,5 +103,32 @@ describe('ContainerManager', function () {
                 );
             });
         });
+        describe('getPierContainerInfo', function () {
+            it('throws when container is not a string', function () {
+                expect(function () {
+                    cm.info({hello: 'world'}, noop);
+                }).toThrow;
+            });
+            it('throws when callback is not a function', function () {
+                expect(function () {
+                    cm.info('world');
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+                var cb = sinon.spy();
+                cm.getPierContainerInfo('test/test', cb);
+
+                expect(request.signed).to.have.been.calledWith(
+                    {containerSecretKey: '1'},
+                    'ContainerManager',
+                    'getPierContainerInfo',
+                    {
+                        container: 'test/test'
+                    },
+                    {
+                    }
+                );
+            });
+        });
     });
 });
