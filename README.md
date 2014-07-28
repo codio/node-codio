@@ -58,6 +58,7 @@ You can pass the constructor an options object with the following properites:
 * `start`
 * `stop`
 * `info`
+* `getPierContainerInfo`
 
 ### TaskManager
 
