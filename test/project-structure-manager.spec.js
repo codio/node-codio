@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve());
+request.signed = sinon.stub().returns(Promise.resolve());
 
 var ProjectStructureManager = Sandbox.require('../lib/project-structure-manager', {
     requires: {'./request': request}

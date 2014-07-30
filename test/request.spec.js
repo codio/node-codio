@@ -116,15 +116,16 @@ describe('request', function () {
 
     it('should generate proper sign', function () {
         server = fakeHttpServer({response: {msg: 'ok'}}, 200, function (body, req) {
+            var timestamp = req.headers['x-codio-sign-timestamp'];
             expect(req.headers).to.have.property('x-codio-sign-timestamp').with.length(13);
-            var shasum = crypto.createHash('sha1');
-            var signature = shasum.update(req.headers['x-codio-sign-timestamp'] +
+            var shasum = crypto.createHmac('sha1', '123');
+            var signature = shasum.update(timestamp +
                 JSON.stringify({
                     object: 'object',
                     method: 'method',
                     data: {my: 'data'},
                     params: {some: 'params'}
-                }) + '123').digest('hex');
+                }) + 'provider').digest('base64');
             expect(req.headers).to.have.property('x-codio-sign').to.be.eql(signature);
         });
         server.listen(1234);
@@ -132,7 +133,8 @@ describe('request', function () {
             hostname: 'localhost',
             port: 1234,
             path: '/manager/stuff',
-            remoteSecretKey: '123'
+            secretKey: '123',
+            provider: 'provider'
         }, 'object', 'method', {my: 'data'}, {some: 'params'})
         .finally(function () {
             server.close();

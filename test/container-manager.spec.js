@@ -2,6 +2,8 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve({message: ''}));
+request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
+
 var TaskManager = function () {
     this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
 };
@@ -23,7 +25,9 @@ describe('ContainerManager', function () {
     describe('api methods', function () {
         var cm;
         beforeEach(function () {
+
             request.reset();
+            request.signed.reset();
             cm = new ContainerManager({
                 containerSecretKey: '1'
             }, function () { return '1'; });
@@ -38,14 +42,12 @@ describe('ContainerManager', function () {
             it('calls the correct request', function () {
                 return cm.start('test/test')
                 .then(function () {
-                    expect(request).to.have.been.calledWith(
+                    expect(request.signed).to.have.been.calledWith(
                         {containerSecretKey: '1'},
                         'ContainerManager',
                         'start',
                         {
-                            container: 'test/test',
-                            uid: '1',
-                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                            container: 'test/test'
                         },
                         {
                         }
@@ -63,14 +65,12 @@ describe('ContainerManager', function () {
             it('calls the correct request', function () {
                 return cm.stop('test/test')
                 .then(function () {
-                    expect(request).to.have.been.calledWith(
+                    expect(request.signed).to.have.been.calledWith(
                         {containerSecretKey: '1'},
                         'ContainerManager',
                         'stop',
                         {
-                            container: 'test/test',
-                            uid: '1',
-                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                            container: 'test/test'
                         },
                         {
                         }
@@ -87,14 +87,34 @@ describe('ContainerManager', function () {
             it('calls the correct request', function () {
                 return cm.info('test/test')
                 .then(function () {
-                    expect(request).to.have.been.calledWith(
+                    expect(request.signed).to.have.been.calledWith(
                         {containerSecretKey: '1'},
                         'ContainerManager',
                         'info',
                         {
-                            container: 'test/test',
-                            uid: '1',
-                            token: 'be7ec5502a6417d1c708108ba67002242d44f09d'
+                            container: 'test/test'
+                        },
+                        {
+                        }
+                    );
+                });
+            });
+        });
+        describe('getPierContainerInfo', function () {
+            it('throws when container is not a string', function () {
+                expect(function () {
+                    cm.info({hello: 'world'});
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+                return cm.getPierContainerInfo('test/test')
+                .then(function () {
+                    expect(request.signed).to.have.been.calledWith(
+                        {containerSecretKey: '1'},
+                        'ContainerManager',
+                        'getPierContainerInfo',
+                        {
+                            container: 'test/test'
                         },
                         {
                         }
