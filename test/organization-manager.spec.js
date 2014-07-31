@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve());
+request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
 var OrganizationManager = Sandbox.require('../lib/organization-manager', {
     requires: {'./request': request}
@@ -198,6 +199,37 @@ describe('OrganizationManager', function () {
                         {
                             organization: 'org',
                             team: ['1', '2']
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
+            });
+        });
+
+        describe('getUserOrganizations', function () {
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    om.getUserOrganizations('id', null);
+                }).toThrow;
+            });
+            it('throws when user is not a string', function () {
+                expect(function () {
+                    om.getUserOrganizations(null, 'session');
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+
+                return om.getUserOrganizations('id', 'session')
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'getUserOrganizations',
+                        {
+                            userId: 'id'
                         },
                         {
                             session_id: 'session'
