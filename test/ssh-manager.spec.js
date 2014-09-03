@@ -48,6 +48,24 @@ describe('SshManager', function () {
                     );
                 });
             });
+
+            it('calls the correct request with session', function () {
+                return ssh.getSshConnectDetails('user', 'container', 'session')
+                    .then(function () {
+                        expect(request.signed).to.have.been.calledWith(
+                            {origin: 'origin'},
+                            'SshPtyManager',
+                            'getContainerSsh',
+                            {
+                                container: 'container',
+                                userName: 'user'
+                            },
+                            {
+                                session_id: 'session'
+                            }
+                        );
+                    });
+            });
         });
 
         describe('getMySshConnectDetails', function () {
