@@ -48,6 +48,25 @@ describe('ProjectManager', function () {
             });
         });
 
+        describe('getProjects', function () {
+            it('calls the correct request', function () {
+                return psm.getProjects(info.user, info.session)
+                    .then(function () {
+                        expect(request).to.have.been.calledWithExactly(
+                            {origin: 'origin'},
+                            'ProjectManager',
+                            'getProjects',
+                            {
+                                account: 'user'
+                            },
+                            {
+                                session_id: 'id'
+                            }
+                        );
+                    });
+            });
+        });
+
         describe('checkPermissionForUser', function () {
             it('calls the correct request', function () {
                 return psm.checkPermissionForUser(info)

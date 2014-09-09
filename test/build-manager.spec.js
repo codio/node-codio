@@ -42,7 +42,7 @@ describe('BuildManager', function () {
                         'BuildManager',
                         'build',
                         {
-                            guid: 'id',
+                            guid: 'id'
                         },
                         {
                             session_id: 'session'
