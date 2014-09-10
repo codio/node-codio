@@ -189,5 +189,24 @@ describe('ProjectManager', function () {
                 });
             });
         });
+
+        describe('alwaysOnBoxesList', function () {
+            it('calls the correct request', function () {
+
+                return psm.alwaysOnBoxesList('fs')
+                    .then(function () {
+
+                        expect(request.signed).to.have.been.calledWithExactly(
+                            { origin: 'origin'},
+                            'ProjectManager',
+                            'alwaysOnBoxesList',
+                            {
+                                fs: 'fs'
+                            },
+                            {}
+                        );
+                    });
+            });
+        });
     });
 });
