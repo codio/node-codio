@@ -51,6 +51,7 @@ You can pass the constructor an options object with the following properites:
 * `getPermissionForProject`
 * `updateProject`
 * `remove`
+* `getProjectArchivedState`
 
 ### ProjectStructureManager
 
