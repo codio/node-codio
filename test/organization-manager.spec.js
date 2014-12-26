@@ -40,7 +40,7 @@ describe('OrganizationManager', function () {
                 expect(request).to.have.been.calledWith(
                     {},
                     'OrganizationManager',
-                    'get',
+                    'getOrganization',
                     {
                         id: 'my id'
                     },

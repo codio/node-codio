@@ -166,7 +166,7 @@ describe('ProjectStructureManager', function () {
         describe('copyItem', function () {
             it('calls the correct request', function () {
 
-                return psm.copyItem('srcPath', 'destPath', info)
+                return psm.copyItem(['srcPath'], ['destPath'], info)
                 .then(function () {
 
                     expect(request).to.have.been.calledWithExactly(
@@ -176,8 +176,8 @@ describe('ProjectStructureManager', function () {
                         {
                             userName: 'user',
                             projectName: 'project',
-                            sourcePath: 'srcPath',
-                            destinationPath: 'destPath'
+                            sourcePath: ['srcPath'],
+                            destinationPath: ['destPath']
                         },
                         {
                             session_id: 'id'
