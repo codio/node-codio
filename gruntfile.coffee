@@ -5,7 +5,8 @@ module.exports = (grunt) ->
         src: [
           'index.js'
           'lib/**/*.js'
-          'test/**/*.js'
+          'test/**/*.js',
+          '!lib/ns/gunzip.js'
         ]
       options:
         jshintrc: '.jshintrc'
