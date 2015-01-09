@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "./node_modules/.bin/grunt",
-    "preinstall": "npm install --ignore-scripts"
+    "preinstall": "npm install primus --production"
   },
   "repository": {
     "type": "git",
