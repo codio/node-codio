@@ -10,7 +10,7 @@ var TaskManager = Sandbox.require('../lib/task-manager', {
 var ns = {
     auth: function () {},
     unsubscribe: function () {},
-    subscribeLast: function () {}
+    subscribeAuthLast: function () {}
 };
 
 describe('TaskManager', function () {
@@ -56,7 +56,7 @@ describe('TaskManager', function () {
                 }).toThrow;
             });
             it('returns an error when the response status is an error', function () {
-                sinon.stub(ns, 'subscribeLast', function (channelId, callback) {
+                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'ERROR', errorMessage: 'error'}, 1);
                     }, 50);
@@ -68,12 +68,12 @@ describe('TaskManager', function () {
                 })
                 .catch(function (err) {
                     expect(err.message).to.be.eql('getTaskStatus returned an error: error');
-                    ns.subscribeLast.restore();
+                    ns.subscribeAuthLast.restore();
                 });
             });
 
             it('returns task body in normal way', function () {
-                sinon.stub(ns, 'subscribeLast', function (channelId, callback) {
+                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'COMPLETED', result: 'done'}, 1);
                     }, 50);
@@ -82,12 +82,12 @@ describe('TaskManager', function () {
                 return taskManager.pingTaskStatus('id')
                     .then(function (response) {
                         expect(response).to.be.eql('done');
-                        ns.subscribeLast.restore();
+                        ns.subscribeAuthLast.restore();
                     });
             });
 
             it('returns an error when the response status is unknown', function () {
-                sinon.stub(ns, 'subscribeLast', function (channelId, callback) {
+                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'STRANGE'}, 1);
                     }, 50);
@@ -99,7 +99,7 @@ describe('TaskManager', function () {
                 })
                 .catch(function (err) {
                     expect(err.message).to.be.eql('Unknown response status: STRANGE');
-                    ns.subscribeLast.restore();
+                    ns.subscribeAuthLast.restore();
                 });
             });
         });
