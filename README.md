@@ -42,16 +42,11 @@ You can pass the constructor an options object with the following properites:
 
 ### ProjectManager
 
-* `get`
 * `getProjects`
 * `getProjectByName`
-* `getProjectForListener`
-* `checkPermissionForUser`
-* `checkPermissionForProject`
 * `getPermissionForProject`
 * `updateProject`
 * `remove`
-* `getProjectArchivedState`
 
 ### ProjectStructureManager
 
