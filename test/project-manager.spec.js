@@ -67,52 +67,6 @@ describe('ProjectManager', function () {
             });
         });
 
-        describe('checkPermissionForUser', function () {
-            it('calls the correct request', function () {
-                return psm.checkPermissionForUser(info)
-                .then(function () {
-
-                    expect(request).to.have.been.calledWithExactly(
-                        {origin: 'origin'},
-                        'ProjectManager',
-                        'checkPermissionForUser',
-                        {
-                            userName: 'user'
-                        },
-                        {
-                            session_id: 'id'
-                        }
-                    );
-                });
-            });
-        });
-        describe('checkPermissionForProject', function () {
-            it('calls the correct request', function () {
-
-                var cred = {
-                    project: {
-                        owner: 'owner',
-                        name: 'name'
-                    },
-                    session: 'id'
-                };
-                return psm.checkPermissionForProject(cred)
-                .then(function () {
-                    expect(request).to.have.been.calledWithExactly(
-                        {origin: 'origin'},
-                        'ProjectManager',
-                        'checkPermissionForProject',
-                        {
-                            userName: 'owner',
-                            projectName: 'name'
-                        },
-                        {
-                            session_id: 'id'
-                        }
-                    );
-                });
-            });
-        });
         describe('getPermissionForProject', function () {
             it('calls the correct request', function () {
                 var cred = {
