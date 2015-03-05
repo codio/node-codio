@@ -208,5 +208,50 @@ describe('ProjectStructureManager', function () {
                 });
             });
         });
+        describe('internalUpdateFile', function () {
+            it('calls the correct request', function () {
+
+                return psm.internalUpdateFile('path', 'content', info)
+                    .then(function () {
+
+                        expect(request.signed).to.have.been.calledWithExactly(
+                            {origin: 'origin'},
+                            'ProjectStructureManager',
+                            'internalUpdateFile',
+                            {
+                                userName: 'user',
+                                projectName: 'project',
+                                path: 'path',
+                                content : (new Buffer('content')).toString('base64')
+                            },
+                            {
+                                session_id: 'id'
+                            }
+                        );
+                    });
+            });
+        });
+        describe('getFileInfo', function () {
+            it('calls the correct request', function () {
+
+                return psm.getFileInfo('path', info)
+                    .then(function () {
+
+                        expect(request.signed).to.have.been.calledWithExactly(
+                            {origin: 'origin'},
+                            'ProjectStructureManager',
+                            'getFileInfo',
+                            {
+                                userName: 'user',
+                                projectName: 'project',
+                                path: 'path'
+                            },
+                            {
+                                session_id: 'id'
+                            }
+                        );
+                    });
+            });
+        });
     });
 });
