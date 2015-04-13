@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "2.1.0",
+  "version": "2.1.0-beta.1",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
