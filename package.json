@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "2.1.0-beta.1",
+  "version": "2.1.0-beta.2",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -29,7 +29,7 @@
     "primus": "^3.0.2",
     "request": "^2.55.0",
     "sockjs": "git://github.com/codio/sockjs-node#5444-upgrade",
-    "sockjs-client": "^1.0.0-beta.12",
+    "sockjs-client": "git://github.com/codio/sockjs-client#no-double-quote",
     "verror": "^1.4.0",
     "ws": "~0.4.31"
   },
