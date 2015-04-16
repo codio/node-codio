@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "2.0.2",
+  "version": "2.1.0-beta.4",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -20,18 +20,18 @@
     "node": "~0.10"
   },
   "dependencies": {
-    "assert-plus": "^0.1.5",
-    "atob": "^1.1.2",
-    "bluebird": "^2.1.1",
-    "form-data": "^0.1.3",
-    "jsdom": "^2.0.0",
-    "lodash": "^2.4.0",
-    "primus": "^2.2.4",
-    "request": "^2.34.0",
-    "sockjs": "^0.3.12",
-    "sockjs-client-node": "^0.1.1",
-    "verror": "^1.4.0",
-    "ws": "~0.4.31"
+    "assert-plus": "0.1.5",
+    "atob": "1.1.2",
+    "bluebird": "2.9.24",
+    "form-data": "0.2.0",
+    "jsdom": "2.0.0",
+    "lodash": "2.4.1",
+    "primus": "3.0.2",
+    "request": "2.55.0",
+    "sockjs": "git://github.com/codio/sockjs-node#master",
+    "sockjs-client": "1.0.0-beta.12",
+    "verror": "1.6.0",
+    "ws": "0.7.1"
   },
   "devDependencies": {
     "grunt-notify": "^0.2.16",
@@ -39,8 +39,8 @@
     "grunt-simple-mocha": "^0.4.0",
     "grunt": "^0.4.2",
     "grunt-contrib-jshint": "^0.7.2",
-    "chai": "^1.9.1",
-    "sinon-chai": "^2.5.0",
+    "chai": "^2.2.0",
+    "sinon-chai": "^2.7.0",
     "sandboxed-module": "^0.3.0"
   },
   "license": "MIT"
