@@ -28,7 +28,7 @@
     "lodash": "2.4.1",
     "primus": "3.0.2",
     "request": "2.55.0",
-    "sockjs": "git://github.com/codio/sockjs-node#5444-upgrade",
+    "sockjs": "git://github.com/codio/sockjs-node#master",
     "sockjs-client": "1.0.0-beta.12",
     "verror": "1.6.0",
     "ws": "0.7.1"
