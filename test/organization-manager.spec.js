@@ -238,5 +238,41 @@ describe('OrganizationManager', function () {
                 });
             });
         });
+        describe('getMembers', function () {
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    om.getMembers('org', 'team', null);
+                }).toThrow;
+            });
+            it('throws when team is not a string', function () {
+                expect(function () {
+                    om.getMembers('org', null, 'session');
+                }).toThrow;
+            });
+            it('throws when team is not a string', function () {
+                expect(function () {
+                    om.getMembers(null, 'team', 'session');
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+
+                return om.getMembers('org', 'team', 'session')
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'getMembers',
+                        {
+                            orgId: 'org',
+                            teamId: 'team'
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
+            });
+        });
     });
 });
