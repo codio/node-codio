@@ -122,5 +122,29 @@ describe('ContainerManager', function () {
                 });
             });
         });
+        describe('run', function () {
+            it('throws when options is not a object', function () {
+                expect(function () {
+                    cm.run('test');
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+                return cm.run({projectId: 'projectId', run: {cmd: 'ls'}}, 'session')
+                  .then(function () {
+                    expect(request).to.have.been.calledWith(
+                        {containerSecretKey: '1'},
+                        'ContainerManager',
+                        'run',
+                        {
+                            projectId: 'projectId',
+                            run: {cmd: 'ls'}
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
+            });
+        });
     });
 });
