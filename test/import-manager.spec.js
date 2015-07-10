@@ -3,6 +3,7 @@
 var Promise = require('bluebird');
 var request = sinon.stub();
 request.file = sinon.stub().returns(Promise.resolve({message: ''}));
+request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
 var TaskManager = function () {
     this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
@@ -54,6 +55,26 @@ describe('ImportManager', function () {
                         {
                             session_id: 'id'
                         }
+                    );
+                });
+            });
+        });
+
+        describe('restoreContent', function () {
+            it('calls the correct request', function () {
+
+                return importManager.restoreContent('user', 'project', 'url', ['src'])
+                .then(function () {
+                    expect(request.signed).to.have.been.calledWithExactly(
+                        {origin: 'origin'},
+                        'ImportManager',
+                        'restoreContent',
+                        {
+                            user: 'user',
+                            project: 'project',
+                            url: 'url',
+                            restore: ['src']
+                        }, {}
                     );
                 });
             });
