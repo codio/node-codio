@@ -162,5 +162,25 @@ describe('ProjectManager', function () {
                     });
             });
         });
+
+        describe('getProjectsList', function () {
+            it('calls the correct request', function () {
+
+                return psm.getProjectsList(['id'], 'session_id')
+                .then(function () {
+                    expect(request).to.have.been.calledWithExactly(
+                        {origin: 'origin'},
+                        'ProjectManager',
+                        'getProjectsList',
+                        {
+                            guids: ['id']
+                        },
+                        {
+                            session_id: 'session_id'
+                        }
+                    );
+                });
+            });
+        });
     });
 });
