@@ -75,6 +75,7 @@ You can pass the constructor an options object with the following properites:
 * `stop`
 * `info`
 * `getPierContainerInfo`
+* `run`
 
 ### TaskManager
 
@@ -86,6 +87,7 @@ You can pass the constructor an options object with the following properites:
 * `importFromZip`
 * `importFromHg`
 * `importFromGit`
+* `restoreContent`
 
 ## Development
 
