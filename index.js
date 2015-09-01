@@ -13,6 +13,7 @@ var AccountManager = require('./lib/account-manager');
 var OrganizationManager = require('./lib/organization-manager');
 var BuildManager = require('./lib/build-manager');
 var ImportManager = require('./lib/import-manager');
+var SubscriptionsManager = require('./lib/subscriptions-manager');
 
 
 module.exports = function (options) {
@@ -35,4 +36,5 @@ module.exports = function (options) {
     this.organizationManager = new OrganizationManager(this.options);
     this.buildManager = new BuildManager(this.options);
     this.importManager = new ImportManager(this.options);
+    this.subscriptionsManager = new SubscriptionsManager(this.options);
 };

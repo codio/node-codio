@@ -89,6 +89,10 @@ You can pass the constructor an options object with the following properites:
 * `importFromGit`
 * `restoreContent`
 
+### SubscriptionsManager
+
+* `getSubscriptions`
+
 ## Development
 
 
