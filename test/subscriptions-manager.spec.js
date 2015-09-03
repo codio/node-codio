@@ -44,6 +44,31 @@ describe('SubscriptionsManager', function () {
                 });
             });
         });
+        describe('getPlans', function () {
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    sm.getPlans(null);
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+
+                sm.getPlans('ORGANIZATION', 'my id')
+                    .then(function () {
+
+                        expect(request).to.have.been.calledWith(
+                            {},
+                            'SubscriptionsManager',
+                            'getPlans',
+                            {
+                                customerType: 'ORGANIZATION'
+                            },
+                            {
+                                session_id: 'my id'
+                            }
+                        );
+                    });
+            });
+        });
 
     });
 });
