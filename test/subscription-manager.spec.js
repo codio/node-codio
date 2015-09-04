@@ -3,14 +3,14 @@
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve());
 
-var SubscriptionsManager = Sandbox.require('../lib/subscriptions-manager', {
+var SubscriptionManager = Sandbox.require('../lib/subscription-manager', {
     requires: {'./request': request}
 });
 
-describe('SubscriptionsManager', function () {
+describe('SubscriptionManager', function () {
     it('should be instantiable', function () {
-        var sm = new SubscriptionsManager({origin: 'origin'});
-        expect(sm).to.be.an.instanceof(SubscriptionsManager);
+        var sm = new SubscriptionManager({origin: 'origin'});
+        expect(sm).to.be.an.instanceof(SubscriptionManager);
         expect(sm.options).to.be.eql({origin: 'origin'});
     });
 
@@ -18,7 +18,7 @@ describe('SubscriptionsManager', function () {
         var sm;
         beforeEach(function () {
             request.reset();
-            sm = new SubscriptionsManager({});
+            sm = new SubscriptionManager({});
         });
 
         describe('getSubscriptions', function () {
@@ -34,7 +34,7 @@ describe('SubscriptionsManager', function () {
 
                     expect(request).to.have.been.calledWith(
                         {},
-                        'SubscriptionsManager',
+                        'SubscriptionManager',
                         'getSubscriptions',
                         {},
                         {
@@ -57,7 +57,7 @@ describe('SubscriptionsManager', function () {
 
                         expect(request).to.have.been.calledWith(
                             {},
-                            'SubscriptionsManager',
+                            'SubscriptionManager',
                             'getPlans',
                             {
                                 customerType: 'ORGANIZATION'
