@@ -9,6 +9,7 @@ describe('api', function () {
         expect(api).to.be.an.instanceof(API);
         expect(api).to.have.a.property('options');
         expect(api).to.have.a.property('projectManager');
+        expect(api).to.have.a.property('subscriptionManager');
         expect(api).to.have.a.property('projectStructureManager');
     });
     describe('arguments', function () {
