@@ -59,6 +59,33 @@ describe('ImportManager', function () {
                 });
             });
         });
+        describe('importFromS3', function () {
+            it('calls the correct request', function () {
+
+                return importManager.importFromS3('/path/to/file', {
+                    name: 'my-proj',
+                    isPublic: false,
+                    description: 'description',
+                    session: 'id'
+                })
+                .then(function () {
+                    expect(request.file).to.have.been.calledWithExactly(
+                        {origin: 'origin'},
+                        'ImportManager',
+                        'importFromS3',
+                        {
+                            filePath: '/path/to/file',
+                            is_public: 'false',
+                            description: 'description',
+                            name: 'my-proj'
+                        },
+                        {
+                            session_id: 'id'
+                        }
+                    );
+                });
+            });
+        });
 
         describe('restoreContent', function () {
             it('calls the correct request', function () {
