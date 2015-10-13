@@ -1,7 +1,7 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach*/
 
 var Promise = require('bluebird');
-var request = sinon.stub();
+var request = sinon.stub().returns(Promise.resolve({message: ''}));
 request.file = sinon.stub().returns(Promise.resolve({message: ''}));
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
@@ -69,7 +69,7 @@ describe('ImportManager', function () {
                     session: 'id'
                 })
                 .then(function () {
-                    expect(request.file).to.have.been.calledWithExactly(
+                    expect(request).to.have.been.calledWithExactly(
                         {origin: 'origin'},
                         'ImportManager',
                         'importFromS3',
