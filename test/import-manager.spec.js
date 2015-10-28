@@ -66,7 +66,8 @@ describe('ImportManager', function () {
                     name: 'my-proj',
                     isPublic: false,
                     description: 'description',
-                    session: 'id'
+                    session: 'id',
+                    isFree: true
                 })
                 .then(function () {
                     expect(request.file).to.have.been.calledWithExactly(
@@ -77,7 +78,8 @@ describe('ImportManager', function () {
                             filePath: '/path/to/file',
                             is_public: 'false',
                             description: 'description',
-                            name: 'my-proj'
+                            name: 'my-proj',
+                            is_free: 'true'
                         },
                         {
                             session_id: 'id'
