@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird');
 var request = sinon.stub().returns(Promise.resolve());
+request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
 var AccountManager = Sandbox.require('../lib/account-manager', {
     requires: {'./request': request}
