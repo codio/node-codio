@@ -78,28 +78,9 @@ describe('SshManager', function () {
                         'SshPtyManager',
                         'getContainerSsh',
                         {
-                            container: 'container',
+                            container: 'container'
                         },
                         { session_id: 'session' }
-                    );
-                });
-            });
-        });
-
-        describe('getHostDetailsBySsh', function () {
-            it('calls the correct request', function () {
-                return ssh.getHostDetailsBySsh('host', 'port')
-                .then(function () {
-
-                    expect(request.signed).to.have.been.calledWith(
-                        {origin: 'origin'},
-                        'SshPtyManager',
-                        'getHostDetailsByExternalSsh',
-                        {
-                            host: 'host',
-                            port: 'port'
-                        },
-                        {}
                     );
                 });
             });
