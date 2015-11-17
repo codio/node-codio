@@ -209,19 +209,19 @@ describe('OrganizationManager', function () {
         });
 
         describe('getUserOrganizations', function () {
-            it('throws when session is not a string', function () {
+            it('throws when options is not a object', function () {
                 expect(function () {
                     om.getUserOrganizations('id', null);
                 }).toThrow;
             });
             it('throws when user is not a string', function () {
                 expect(function () {
-                    om.getUserOrganizations(null, 'session');
+                    om.getUserOrganizations(null, {});
                 }).toThrow;
             });
             it('calls the correct request', function () {
 
-                return om.getUserOrganizations('id', 'session')
+                return om.getUserOrganizations('id', {withMembers: true})
                 .then(function () {
 
                     expect(request.signed).to.have.been.calledWith(
@@ -229,10 +229,8 @@ describe('OrganizationManager', function () {
                         'OrganizationManager',
                         'getUserOrganizations',
                         {
-                            userId: 'id'
-                        },
-                        {
-                            session_id: 'session'
+                            userId: 'id',
+                            withMembers: true
                         }
                     );
                 });
