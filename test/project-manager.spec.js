@@ -182,5 +182,25 @@ describe('ProjectManager', function () {
                 });
             });
         });
+
+        describe('setProjectsDisabled', function () {
+            it('calls the correct request', function () {
+
+                return psm.setProjectsDisabled(['id1', 'id2'], true)
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWithExactly(
+                        { origin: 'origin'},
+                        'ProjectManager',
+                        'setProjectsDisabled',
+                        {
+                            guids: ['id1', 'id2'],
+                            is_disabled: true
+                        },
+                        {}
+                    );
+                });
+            });
+        });
     });
 });
