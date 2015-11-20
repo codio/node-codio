@@ -144,6 +144,25 @@ describe('ProjectManager', function () {
             });
         });
 
+        describe('resolveUserProjectInfo', function () {
+            it('calls the correct request', function () {
+
+                return psm.resolveUserProjectInfo('id')
+                  .then(function () {
+
+                    expect(request.signed).to.have.been.calledWithExactly(
+                        { origin: 'origin'},
+                        'ProjectManager',
+                        'resolveUserProjectInfo',
+                        {
+                            guid: 'id'
+                        },
+                        {}
+                    );
+                });
+            });
+        });
+
         describe('alwaysOnBoxesList', function () {
             it('calls the correct request', function () {
 
