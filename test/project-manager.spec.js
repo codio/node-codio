@@ -201,5 +201,25 @@ describe('ProjectManager', function () {
                 });
             });
         });
+
+        describe('subscribeToProject', function () {
+            it('calls the correct request', function () {
+                return psm.subscribeToProject(info.user, 'project', info.session)
+                    .then(function () {
+                        expect(request).to.have.been.calledWithExactly(
+                            {origin: 'origin'},
+                            'ProjectManager',
+                            'subscribeToProject',
+                            {
+                                accountName: 'user',
+                                projectName: 'project'
+                            },
+                            {
+                                session_id: 'id'
+                            }
+                        );
+                    });
+            });
+        });
     });
 });
