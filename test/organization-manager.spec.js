@@ -109,7 +109,7 @@ describe('OrganizationManager', function () {
                 })
                 .then(function () {
 
-                    expect(request).to.have.been.calledWith(
+                    expect(request.signed).to.have.been.calledWith(
                         {},
                         'OrganizationManager',
                         'createTeam',
