@@ -78,5 +78,22 @@ describe('AccountManager', function () {
                 });
             });
         });
+
+        describe('ensureLtiUser', function () {
+            it('calls the correct request', function () {
+                var data = {id: 'id'};
+                am.ensureLtiUser(data)
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'ensureLtiUser',
+                        data,
+                        {}
+                    );
+                });
+            });
+        });
     });
 });
