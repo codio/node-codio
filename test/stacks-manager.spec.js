@@ -26,7 +26,7 @@ describe('StacksManager', function () {
         describe('getStacksByIdInternal', function () {
             it('throws when session is not a string', function () {
                 expect(function () {
-                    sm.getStacksByIdInternal(null, 'session');
+                    sm.getStacksByIdInternal(null);
                 }).toThrow;
             });
             it('calls the correct request', function () {
@@ -34,7 +34,7 @@ describe('StacksManager', function () {
                 sm.getStacksByIdInternal(['id1'], 'session')
                 .then(function () {
 
-                    expect(request).to.have.been.calledWith(
+                    expect(request.signed).to.have.been.calledWith(
                         {},
                         'StacksManager',
                         'getStacksByIdInternal',
