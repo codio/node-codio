@@ -48,5 +48,30 @@ describe('StacksManager', function () {
                 });
             });
         });
+        describe('getStacksByVersionIdInternal', function () {
+            it('throws when session is not a string', function () {
+                expect(function () {
+                    sm.getStacksByVersionIdInternal(null);
+                }).toThrow;
+            });
+            it('calls the correct request', function () {
+
+                sm.getStacksByVersionIdInternal(['id1'], 'session')
+                  .then(function () {
+
+                      expect(request.signed).to.have.been.calledWith(
+                        {},
+                        'StacksManager',
+                        'getStacksByVersionIdInternal',
+                        {
+                            'ids': ['id1']
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                      );
+                  });
+            });
+        });
     });
 });
