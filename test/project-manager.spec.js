@@ -225,7 +225,7 @@ describe('ProjectManager', function () {
         describe('setReadOnly', function () {
             it('calls the correct request', function () {
 
-                return psm.setReadOnly('id', true)
+                return psm.setReadOnly({id: 'id', isReadOnly: true})
                 .then(function () {
                     expect(request.signed).to.have.been.calledWithExactly(
                         { origin: 'origin'},
@@ -233,6 +233,7 @@ describe('ProjectManager', function () {
                         'setReadOnly',
                         {
                             projectId: 'id',
+                            projectIds: undefined,
                             isReadOnly: true
                         },
                         {}
