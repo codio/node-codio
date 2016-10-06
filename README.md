@@ -1,6 +1,6 @@
 # Node Codio
 
-[![wercker status](https://app.wercker.com/status/740b1e702348d13653d556d3ba60d11c/m/ "wercker status")](https://app.wercker.com/project/bykey/740b1e702348d13653d556d3ba60d11c)
+[![wercker status](https://app.wercker.com/status/c66c8c579998b4d1c49c770178fc913b/s/master "wercker status")](https://app.wercker.com/project/byKey/c66c8c579998b4d1c49c770178fc913b)
 
 API to connect to [codio/server] from a node.js client.
 
