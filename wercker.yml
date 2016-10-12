@@ -1,14 +1,12 @@
-box: wercker/nodejs
-
-steps:
-  - wercker/grunt@0.0.9
-  - dignifiedquire/flowdock-notify@1.0.2
+box: codio/node_4.x
 
 build:
   steps:
     - npm-install
-    - grunt:
-        tasks: default
+    - script:
+        name: execute grunt default
+        code: |
+          grunt default
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
