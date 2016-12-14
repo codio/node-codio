@@ -1,8 +1,8 @@
-box: codio/node_4.x
+box: node:4
 
 build:
   steps:
-    - npm-install
+    - yarn
     - script:
         name: execute grunt default
         code: |

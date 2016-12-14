@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -15,9 +15,6 @@
   "author": "Codio <support@codio.com>",
   "bugs": {
     "url": "https://github.com/codio/node-codio/issues"
-  },
-  "engines": {
-    "node": "~4.3.0"
   },
   "dependencies": {
     "assert-plus": "1.0.0",
