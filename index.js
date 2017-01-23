@@ -16,6 +16,7 @@ var BuildManager = require('./lib/build-manager');
 var ImportManager = require('./lib/import-manager');
 var SubscriptionManager = require('./lib/subscription-manager');
 var PlagiarismDetectionManager = require('./lib/plagiarism-detection-manager');
+var EducationTrialManager = require('./lib/trial-manager');
 
 
 module.exports = function (options) {
@@ -41,4 +42,5 @@ module.exports = function (options) {
     this.importManager = new ImportManager(this.options);
     this.subscriptionManager = new SubscriptionManager(this.options);
     this.plagiarismDetectionManager = new PlagiarismDetectionManager(this.options);
+    this.educationTrialManager = new EducationTrialManager(this.options);
 };
