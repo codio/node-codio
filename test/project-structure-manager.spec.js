@@ -120,7 +120,7 @@ describe('ProjectStructureManager', function () {
         describe('createFile', function () {
             it('calls the correct request', function () {
 
-                return psm.createFile('path', null, info)
+                return psm.createFile('path', info)
                 .then(function () {
 
                     expect(request).to.have.been.calledWithExactly(
