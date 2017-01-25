@@ -130,8 +130,7 @@ describe('ProjectStructureManager', function () {
                         {
                             userName: 'user',
                             projectName: 'project',
-                            path: 'path',
-                            template: ''
+                            path: 'path'
                         },
                         {
                             session_id: 'id'
