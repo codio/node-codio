@@ -290,7 +290,7 @@ describe('ProjectManager', function () {
           return psm.changeStackInternal(ids, 'stack')
             .then(function () {
               expect(request.signed).to.have.been.calledWith(
-                {containerSecretKey: '1'},
+                {origin: 'origin'},
                 'ProjectManager',
                 'changeStackInternal',
                 {
