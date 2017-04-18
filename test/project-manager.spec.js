@@ -26,6 +26,7 @@ describe('ProjectManager', function () {
         var psm;
         beforeEach(function () {
             request.reset();
+            request.signed.reset();
             psm = new ProjectManager({origin: 'origin'});
         });
         describe('getBrojectByName', function () {
@@ -259,5 +260,48 @@ describe('ProjectManager', function () {
                 });
             });
         });
+
+      describe('getStackVersionForProjects', function () {
+        it('calls the correct request', function () {
+          var ids = ['1'];
+          return psm.getStackVersionForProjects(ids)
+            .then(function () {
+              expect(request.signed).to.have.been.calledWithExactly(
+                { origin: 'origin'},
+                'ProjectManager',
+                'getStackVersionForProjects',
+                {
+                  ids: ids
+                },
+                {}
+              );
+            });
+        });
+      });
+
+      describe('changeStackInternal', function () {
+        it('throws when ids is not an array', function () {
+          expect(function () {
+            psm.resetInternal({hello: 'world'});
+          }).toThrow;
+        });
+        it('calls the correct request', function () {
+          var ids = ['1'];
+          return psm.changeStackInternal(ids, 'stack')
+            .then(function () {
+              expect(request.signed).to.have.been.calledWith(
+                {origin: 'origin'},
+                'ProjectManager',
+                'changeStackInternal',
+                {
+                  ids: ids,
+                  stack: 'stack'
+                },
+                {
+                }
+              );
+            });
+        });
+      });
     });
 });
