@@ -47,6 +47,31 @@ describe('StacksManager', function () {
       });
     });
 
+    describe('getStackById', function () {
+      it('throws when id is not an string', function () {
+        expect(function () {
+          sm.getStackById(null);
+        }).toThrow;
+      });
+      it('calls the correct request', function () {
+        var id = '123';
+        sm.getStackById(id)
+          .then(function () {
+
+            expect(request.signed).to.have.been.calledWith(
+              {},
+              'StacksManager',
+              'getStacksVersions',
+              {
+                ids: id
+              },
+              {
+              }
+            );
+          });
+      });
+    });
+
     describe('publishVersion', function () {
       it('throws when data is not passed', function () {
         expect(function () {
