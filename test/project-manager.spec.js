@@ -282,12 +282,12 @@ describe('ProjectManager', function () {
       describe('changeStackInternal', function () {
         it('throws when ids is not an array', function () {
           expect(function () {
-            psm.resetInternal({hello: 'world'});
+            psm.changeStackInternal({hello: 'world'});
           }).toThrow;
         });
         it('calls the correct request', function () {
           var ids = ['1'];
-          return psm.changeStackInternal(ids, 'stack')
+          return psm.changeStackInternal(ids, 'stack', false)
             .then(function () {
               expect(request.signed).to.have.been.calledWith(
                 {origin: 'origin'},
@@ -295,7 +295,8 @@ describe('ProjectManager', function () {
                 'changeStackInternal',
                 {
                   ids: ids,
-                  stack: 'stack'
+                  stack: 'stack',
+                  isLatestStack: false
                 },
                 {
                 }
