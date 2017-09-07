@@ -1,6 +1,6 @@
 {
   "name": "node-codio",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Codio API",
   "main": "index.js",
   "private": true,
@@ -16,9 +16,6 @@
   "bugs": {
     "url": "https://github.com/codio/node-codio/issues"
   },
-  "engines": {
-    "node": "~4.3.0"
-  },
   "dependencies": {
     "assert-plus": "1.0.0",
     "bluebird": "3.3.1",
@@ -32,14 +29,16 @@
     "ws": "1.1.1"
   },
   "devDependencies": {
-    "grunt-notify": "0.4.3",
-    "grunt-contrib-watch": "0.6.1",
-    "grunt-simple-mocha": "0.4.1",
+    "chai": "^2.2.0",
     "grunt": "0.4.5",
     "grunt-contrib-jshint": "1.0.0",
-    "chai": "^2.2.0",
-    "sinon-chai": "^2.7.0",
-    "sandboxed-module": "^0.3.0"
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-notify": "0.4.3",
+    "grunt-simple-mocha": "0.4.1",
+    "sandboxed-module": "^0.3.0",
+    "grunt-cli": "^1.2.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.7.0"
   },
   "license": "MIT"
 }
