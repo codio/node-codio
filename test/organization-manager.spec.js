@@ -156,6 +156,34 @@ describe('OrganizationManager', function () {
             });
         });
 
+        describe('getOrganizationTeams', function () {
+
+            it('throws orgid is not a string', function () {
+                expect(function () {
+                om.getOrganizationTeams(null, 'session');
+              }).toThrow;
+            });
+            it('calls the correct request', function () {
+
+            return om.getOrganizationTeams('org', 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'OrganizationManager',
+                        'getOrganizationTeams',
+                        {
+                            id: 'org',
+                            withMembers: false
+                        },
+                        {
+                            session_id: 'session'
+                        }
+                    );
+                });
+            });
+        });
+
         describe('getMyOrganizations', function () {
             it('throws when session is not a string', function () {
                 expect(function () {
