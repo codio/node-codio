@@ -56,7 +56,7 @@ describe('TaskManager', function () {
                 }).toThrow;
             });
             it('returns an error when the response status is an error', function () {
-                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
+                sinon.stub(ns, 'subscribeAuthLast').callsFake(function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'ERROR', errorMessage: 'error'}, 1);
                     }, 50);
@@ -73,7 +73,7 @@ describe('TaskManager', function () {
             });
 
             it('returns task body in normal way', function () {
-                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
+                sinon.stub(ns, 'subscribeAuthLast').callsFake(function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'COMPLETED', result: 'done'}, 1);
                     }, 50);
@@ -87,7 +87,7 @@ describe('TaskManager', function () {
             });
 
             it('returns an error when the response status is unknown', function () {
-                sinon.stub(ns, 'subscribeAuthLast', function (channelId, session, callback) {
+                sinon.stub(ns, 'subscribeAuthLast').callsFake(function (channelId, session, callback) {
                     setTimeout(function () {
                         callback({status: 'STRANGE'}, 1);
                     }, 50);
