@@ -23,7 +23,7 @@ describe('TaskManager', function () {
     describe('api methods', function () {
         var taskManager;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             taskManager = new TaskManager({origin: 'origin'});
             taskManager.setNs(ns);
         });

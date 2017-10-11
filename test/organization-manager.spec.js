@@ -18,7 +18,7 @@ describe('OrganizationManager', function () {
     describe('api methods', function () {
         var om;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             om = new OrganizationManager({});
         });
 

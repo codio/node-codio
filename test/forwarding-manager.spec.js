@@ -27,7 +27,7 @@ describe('ForwardingManager', function () {
         var manager;
 
         beforeEach(function () {
-            request.signed.reset();
+            request.signed.resetHistory();
             manager = new ForwardingManager({origin: 'origin'});
         });
 

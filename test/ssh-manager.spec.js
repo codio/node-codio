@@ -28,7 +28,7 @@ describe('SshManager', function () {
         var ssh;
 
         beforeEach(function () {
-            request.signed.reset();
+            request.signed.resetHistory();
             ssh = new SshManager({origin: 'origin'});
         });
 

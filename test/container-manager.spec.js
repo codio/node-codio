@@ -26,8 +26,8 @@ describe('ContainerManager', function () {
         var cm;
         beforeEach(function () {
 
-            request.reset();
-            request.signed.reset();
+            request.resetHistory();
+            request.signed.resetHistory();
             cm = new ContainerManager({
                 containerSecretKey: '1'
             }, function () { return '1'; });

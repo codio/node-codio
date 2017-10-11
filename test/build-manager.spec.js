@@ -1,11 +1,15 @@
 /* global Sandbox, describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
-var request = sinon.stub().returns(Promise.resolve());
+var request = sinon.stub().returns(Promise.resolve({}));
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
+var TaskManager = function () {
+  this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
+};
+
 var BuildManager = Sandbox.require('../lib/build-manager', {
-    requires: {'./request': request}
+    requires: {'./request': request, './task-manager': TaskManager}
 });
 
 describe('BuildManager', function () {
@@ -18,7 +22,7 @@ describe('BuildManager', function () {
     describe('api methods', function () {
         var bm;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             bm = new BuildManager({});
         });
 

@@ -18,7 +18,7 @@ describe('AccountManager', function () {
     describe('api methods', function () {
         var am;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory()
             am = new AccountManager({});
         });
 
@@ -30,7 +30,7 @@ describe('AccountManager', function () {
             });
             it('calls the correct request', function () {
 
-                am.getMyInfo('my id')
+                return am.getMyInfo('my id')
                 .then(function () {
 
                     expect(request).to.have.been.calledWith(
@@ -61,7 +61,7 @@ describe('AccountManager', function () {
 
             it('calls the correct request', function () {
 
-                am.get('id', 'session')
+                return am.get('id', 'session')
                 .then(function () {
 
                     expect(request).to.have.been.calledWith(
@@ -82,7 +82,7 @@ describe('AccountManager', function () {
         describe('ensureLtiUser', function () {
             it('calls the correct request', function () {
                 var data = {id: 'id'};
-                am.ensureLtiUser(data)
+                return am.ensureLtiUser(data)
                 .then(function () {
 
                     expect(request.signed).to.have.been.calledWith(

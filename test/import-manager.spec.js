@@ -28,8 +28,8 @@ describe('ImportManager', function () {
     describe('api methods', function () {
         var importManager;
         beforeEach(function () {
-            request.reset();
-            request.file.reset();
+            request.resetHistory();
+            request.file.resetHistory();
             importManager = new ImportManager({origin: 'origin'});
         });
         describe('importFromZip', function () {

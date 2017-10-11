@@ -25,7 +25,7 @@ describe('ProjectStructureManager', function () {
     describe('api methods', function () {
         var psm;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             psm = new ProjectStructureManager({origin: 'origin'});
         });
 

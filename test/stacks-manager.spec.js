@@ -18,7 +18,7 @@ describe('StacksManager', function () {
   describe('api methods', function () {
     var sm;
     beforeEach(function () {
-      request.reset();
+      request.resetHistory();
       sm = new StacksManager({});
     });
 
@@ -30,7 +30,7 @@ describe('StacksManager', function () {
       });
       it('calls the correct request', function () {
         var ids = ['123'];
-        sm.getStacksVersions(ids)
+        return sm.getStacksVersions(ids)
           .then(function () {
 
             expect(request.signed).to.have.been.calledWith(
@@ -87,7 +87,7 @@ describe('StacksManager', function () {
           userId: 'user-id',
           replyParameters: {task: 'task'}
         };
-        sm.publishVersion(data)
+        return sm.publishVersion(data)
           .then(function () {
 
             expect(request.signed).to.have.been.calledWith(
@@ -121,7 +121,7 @@ describe('StacksManager', function () {
           replyParameters: {task: 'task'},
           tags: []
         };
-        sm.createStack(data)
+        return sm.createStack(data)
           .then(function () {
 
             expect(request.signed).to.have.been.calledWith(

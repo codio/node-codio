@@ -25,8 +25,8 @@ describe('ProjectManager', function () {
     describe('api methods', function () {
         var psm;
         beforeEach(function () {
-            request.reset();
-            request.signed.reset();
+            request.resetHistory();
+            request.signed.resetHistory();
             psm = new ProjectManager({origin: 'origin'});
         });
         describe('getBrojectByName', function () {

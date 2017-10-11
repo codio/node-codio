@@ -22,7 +22,7 @@ describe('PlagiarismDetectionManager', function () {
         var manager;
 
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             manager = new PlagiarismDetectionManager({origin: 'origin'});
         });
 
