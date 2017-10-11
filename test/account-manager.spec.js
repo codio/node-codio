@@ -18,7 +18,7 @@ describe('AccountManager', function () {
     describe('api methods', function () {
         var am;
         beforeEach(function () {
-            request.resetHistory()
+            request.resetHistory();
             am = new AccountManager({});
         });
 
