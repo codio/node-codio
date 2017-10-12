@@ -1,12 +1,15 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
-var AccountManager = Sandbox.require('../lib/account-manager', {
-    requires: {'./request': request}
-});
+var AccountManager = proxyquire('../lib/account-manager',
+    {
+        './request': request
+    });
 
 describe('AccountManager', function () {
     it('should be instantiable', function () {

@@ -1,6 +1,8 @@
-/* global Sandbox, describe, it, expect,    sinon, beforeEach */
+/* global describe, it, expect,    sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub();
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
@@ -8,11 +10,9 @@ var TaskManager = function () {
     this.pingTaskStatus =    sinon.stub().returns(Promise.resolve());
 };
 
-var ForwardingManager = Sandbox.require('../lib/forwarding-manager', {
-    requires: {
-        './request': request,
-        './task-manager': TaskManager
-    }
+var ForwardingManager = proxyquire('../lib/forwarding-manager', {
+    './request': request,
+    './task-manager': TaskManager
 });
 
 describe('ForwardingManager', function () {

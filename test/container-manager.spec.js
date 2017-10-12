@@ -1,6 +1,8 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve({message: ''}));
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
@@ -8,11 +10,9 @@ var TaskManager = function () {
     this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
 };
 
-var ContainerManager = Sandbox.require('../lib/container-manager', {
-    requires: {
-        './request': request,
-        './task-manager': TaskManager
-    }
+var ContainerManager = proxyquire('../lib/container-manager', {
+    './request': request,
+    './task-manager': TaskManager
 });
 
 describe('ContainerManager', function () {

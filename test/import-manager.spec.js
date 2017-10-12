@@ -1,6 +1,8 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach*/
+/* global describe, it, expect,  sinon, beforeEach*/
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve({message: ''}));
 request.file = sinon.stub().returns(Promise.resolve({message: ''}));
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
@@ -9,11 +11,9 @@ var TaskManager = function () {
     this.pingTaskStatus =  sinon.stub().returns(Promise.resolve());
 };
 
-var ImportManager = Sandbox.require('../lib/import-manager', {
-    requires: {
-        './request': request,
-        './task-manager': TaskManager
-    }
+var ImportManager = proxyquire('../lib/import-manager', {
+    './request': request,
+    './task-manager': TaskManager
 });
 
 

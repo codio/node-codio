@@ -1,11 +1,13 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
-var SubscriptionManager = Sandbox.require('../lib/subscription-manager', {
-    requires: {'./request': request}
+var SubscriptionManager = proxyquire('../lib/subscription-manager', {
+    './request': request
 });
 
 describe('SubscriptionManager', function () {
