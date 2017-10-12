@@ -17,7 +17,7 @@
     "url": "https://github.com/codio/node-codio/issues"
   },
   "engines": {
-    "node": "~4.3.0"
+    "node": "~8.6.0"
   },
   "dependencies": {
     "assert-plus": "1.0.0",
