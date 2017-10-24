@@ -1,19 +1,17 @@
 /* global describe, it, expect, sinon */
 var Promise = require('bluebird');
-var req = Promise.promisifyAll(require('request'));
+var req = require('../lib/curl');
 var crypto = require('crypto');
 var request = require('../lib/request');
 
-function fakeRequest(json, code, reqCallback) {
-    if (req.post.restore) {
-        req.post.restore();
-    }
-    sinon.stub(req, 'post').callsFake(function (body, callback) {
-        body.statusCode = code;
-        body.method = 'POST';
-        reqCallback && reqCallback(JSON.parse(body.body), body);
-        body.body = JSON.stringify(json);
-        callback && callback(code !== 200, body);
+function fakeRequest(json, code) {
+    req.request.restore && req.request.restore();
+    sinon.stub(req, 'request').callsFake(function () {
+        var body = {
+            body: JSON.stringify(json),
+            statusCode: code
+        };
+        return code === 200 ? Promise.resolve(body) : Promise.reject(body);
     });
 }
 
