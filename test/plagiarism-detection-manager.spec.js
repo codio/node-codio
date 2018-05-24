@@ -29,7 +29,8 @@ describe('PlagiarismDetectionManager', function () {
         describe('detectPlagiarism', function () {
             it('calls the correct request', function () {
                 return manager.detectPlagiarism('classId', 'unitId',
-                    ['id', 'id1'], 'unit_source', ['mask1', 'mask2'], 'root', 'sourceUrl', 'session')
+                    ['id', 'id1'], 'unit_source', ['mask1', 'mask2'],
+                    'root', 'sourceUrl', 'session')
                     .then(function () {
                         expect(request).to.have.been.calledWith(
                             {origin: 'origin'},
