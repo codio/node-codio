@@ -30,7 +30,7 @@ describe('PlagiarismDetectionManager', function () {
             it('calls the correct request', function () {
                 return manager.detectPlagiarism('classId', 'unitId',
                     ['id', 'id1'], 'unit_source', ['mask1', 'mask2'],
-                    'root', 'sourceUrl', 'session')
+                    'root', 'bucket', 'key', 'session')
                     .then(function () {
                         expect(request).to.have.been.calledWith(
                             {origin: 'origin'},
@@ -43,7 +43,7 @@ describe('PlagiarismDetectionManager', function () {
                                 unitSource: 'unit_source',
                                 masks: ['mask1', 'mask2'],
                                 rootPath: 'root',
-                                sourceUrl: 'sourceUrl'
+                                previousSources: {bucket: 'bucket', key: 'key'}
                             },
                             {
                                 session_id: 'session'
