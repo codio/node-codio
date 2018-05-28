@@ -8,7 +8,7 @@ var AccountManager = Sandbox.require('../lib/account-manager', {
     requires: {'./request': request}
 });
 
-describe.only('AccountManager', function () {
+describe('AccountManager', function () {
     it('should be instantiable', function () {
         var am = new AccountManager({origin: 'origin'});
         expect(am).to.be.an.instanceof(AccountManager);
