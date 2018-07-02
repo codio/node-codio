@@ -61,9 +61,9 @@ describe('StacksManager', function () {
             expect(request.signed).to.have.been.calledWith(
               {},
               'StacksManager',
-              'getStacksVersions',
+              'getStackById',
               {
-                ids: id
+                id: id
               },
               {
               }

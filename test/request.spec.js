@@ -8,7 +8,7 @@ function fakeRequest(json, code, reqCallback) {
     if (req.post.restore) {
         req.post.restore();
     }
-    sinon.stub(req, 'post', function (body, callback) {
+    sinon.stub(req, 'post').callsFake(function (body, callback) {
         body.statusCode = code;
         body.method = 'POST';
         reqCallback && reqCallback(JSON.parse(body.body), body);
