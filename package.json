@@ -27,7 +27,6 @@
     "lodash": "4.5.0",
     "primus": "^6.0.3",
     "request": "2.75.0",
-    "sinon": "^6.1.4",
     "sockjs": "0.3.18",
     "sockjs-client": "1.1.1",
     "verror": "1.6.1",
