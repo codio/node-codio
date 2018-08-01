@@ -38,4 +38,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ['simplemocha:all']
 
   # Register default task
-  grunt.registerTask 'default', ['jshint', 'test']
+  grunt.registerTask 'default', ['jshint']
