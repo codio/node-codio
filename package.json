@@ -20,6 +20,7 @@
     "assert-plus": "1.0.0",
     "bluebird": "3.3.1",
     "form-data": "1.0.0-rc3",
+    "grunt-cli": "^1.2.0",
     "lodash": "4.5.0",
     "primus": "^6.0.3",
     "request": "2.83.0",
@@ -36,9 +37,8 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-notify": "0.4.3",
     "grunt-simple-mocha": "0.4.1",
-    "proxyquire": "^1.8.0",
-    "sinon": "^4.0.1",
-    "sinon-chai": "2.14.0"
+    "sandboxed-module": "^0.3.0",
+    "sinon-chai": "^2.7.0"
   },
   "license": "MIT"
 }
