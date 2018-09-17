@@ -1,13 +1,12 @@
-/* global Sandbox, describe, it, expect,    sinon, beforeEach */
+/* global describe, it, expect,    sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
 
 var request = sinon.stub().returns(Promise.resolve());
 
-var PlagiarismDetectionManager = Sandbox.require('../lib/plagiarism-detection-manager', {
-    requires: {
-        './request': request
-    }
+var PlagiarismDetectionManager = proxyquire('../lib/plagiarism-detection-manager', {
+    './request': request
 });
 
 describe('PlagiarismDetectionManager', function () {
@@ -22,7 +21,7 @@ describe('PlagiarismDetectionManager', function () {
         var manager;
 
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             manager = new PlagiarismDetectionManager({origin: 'origin'});
         });
 

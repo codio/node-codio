@@ -1,12 +1,15 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
-var AccountManager = Sandbox.require('../lib/account-manager', {
-    requires: {'./request': request}
-});
+var AccountManager = proxyquire('../lib/account-manager',
+    {
+        './request': request
+    });
 
 describe('AccountManager', function () {
     it('should be instantiable', function () {
@@ -18,7 +21,7 @@ describe('AccountManager', function () {
     describe('api methods', function () {
         var am;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             am = new AccountManager({});
         });
 
@@ -30,7 +33,7 @@ describe('AccountManager', function () {
             });
             it('calls the correct request', function () {
 
-                am.getMyInfo('my id')
+                return am.getMyInfo('my id')
                 .then(function () {
 
                     expect(request).to.have.been.calledWith(
@@ -61,7 +64,7 @@ describe('AccountManager', function () {
 
             it('calls the correct request', function () {
 
-                am.get('id', 'session')
+                return am.get('id', 'session')
                 .then(function () {
 
                     expect(request).to.have.been.calledWith(
@@ -82,7 +85,7 @@ describe('AccountManager', function () {
         describe('ensureLtiUser', function () {
             it('calls the correct request', function () {
                 var data = {id: 'id'};
-                am.ensureLtiUser(data)
+                return am.ensureLtiUser(data)
                 .then(function () {
 
                     expect(request.signed).to.have.been.calledWith(

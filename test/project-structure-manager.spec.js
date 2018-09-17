@@ -1,11 +1,13 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 request.signed = sinon.stub().returns(Promise.resolve());
 
-var ProjectStructureManager = Sandbox.require('../lib/project-structure-manager', {
-    requires: {'./request': request}
+var ProjectStructureManager = proxyquire('../lib/project-structure-manager', {
+    './request': request
 });
 
 
@@ -25,7 +27,7 @@ describe('ProjectStructureManager', function () {
     describe('api methods', function () {
         var psm;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             psm = new ProjectStructureManager({origin: 'origin'});
         });
 

@@ -1,10 +1,12 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 
-var TaskManager = Sandbox.require('../lib/task-manager', {
-    requires: {'./request': request}
+var TaskManager = proxyquire('../lib/task-manager', {
+    './request': request
 });
 
 var ns = {
@@ -23,7 +25,7 @@ describe('TaskManager', function () {
     describe('api methods', function () {
         var taskManager;
         beforeEach(function () {
-            request.reset();
+            request.resetHistory();
             taskManager = new TaskManager({origin: 'origin'});
             taskManager.setNs(ns);
         });

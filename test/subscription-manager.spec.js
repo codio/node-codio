@@ -1,11 +1,13 @@
-/* global Sandbox, describe, it, expect,  sinon, beforeEach */
+/* global describe, it, expect,  sinon, beforeEach */
 
 var Promise = require('bluebird');
+var proxyquire = require('proxyquire');
+
 var request = sinon.stub().returns(Promise.resolve());
 request.signed = sinon.stub().returns(Promise.resolve({message: ''}));
 
-var SubscriptionManager = Sandbox.require('../lib/subscription-manager', {
-    requires: {'./request': request}
+var SubscriptionManager = proxyquire('../lib/subscription-manager', {
+    './request': request
 });
 
 describe('SubscriptionManager', function () {
@@ -18,8 +20,8 @@ describe('SubscriptionManager', function () {
     describe('api methods', function () {
         var sm;
         beforeEach(function () {
-            request.reset();
-            request.signed.reset();
+            request.resetHistory();
+            request.signed.resetHistory();
             sm = new SubscriptionManager({});
         });
 
@@ -31,7 +33,7 @@ describe('SubscriptionManager', function () {
             });
             it('calls the correct request', function () {
 
-                sm.getSubscriptions('my id')
+                return sm.getSubscriptions('my id')
                 .then(function () {
 
                     expect(request).to.have.been.calledWith(
@@ -49,7 +51,7 @@ describe('SubscriptionManager', function () {
         describe('getSubscription', function () {
             it('calls the correct request without params', function () {
 
-                sm.getSubscription()
+                return sm.getSubscription()
                 .then(function () {
 
                     expect(request.signed).to.have.been.calledWith(
@@ -62,7 +64,7 @@ describe('SubscriptionManager', function () {
             });
             it('calls the correct request', function () {
 
-                sm.getSubscription('my id')
+                return sm.getSubscription('my id')
                 .then(function () {
 
                     expect(request.signed).to.have.been.calledWith(
@@ -84,7 +86,7 @@ describe('SubscriptionManager', function () {
             });
             it('calls the correct request', function () {
 
-                sm.getPlans('ORGANIZATION', 'my id')
+                    return sm.getPlans('ORGANIZATION', 'my id')
                     .then(function () {
 
                         expect(request).to.have.been.calledWith(
