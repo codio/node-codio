@@ -16,7 +16,7 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
-  after-steps:
-    - codio/flowdock-notify:
-        token: $FLOWDOCK_TOKEN
-        from_address: werckerbot@codio.com
+    - slack-notifier:
+      url: $SLACK_URL
+      channel: announcements
+      username: werckerbot
