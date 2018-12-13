@@ -98,5 +98,37 @@ describe('AccountManager', function () {
                 });
             });
         });
+
+        describe('isEmailInUse', function () {
+            it('calls the correct request', function () {
+                return am.isEmailInUse('email')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'isEmailInUse',
+                        {email: 'email'},
+                        {}
+                    );
+                });
+            });
+        });
+
+        describe('removeAccount', function () {
+            it('calls the correct request', function () {
+                return am.removeAccount('session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'removeAccount',
+                        {},
+                        {session_id: 'session'}
+                    );
+                });
+            });
+        });
     });
 });

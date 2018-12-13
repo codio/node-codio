@@ -274,5 +274,35 @@ describe('OrganizationManager', function () {
                 });
             });
         });
+        describe('isOrganizationNameTaken', function () {
+            it('calls the correct request', function () {
+                return om.isOrganizationNameTaken('name')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'isOrganizationNameTaken',
+                        {name: 'name'},
+                        {}
+                    );
+                });
+            });
+        });
+        describe('remove', function () {
+            it('calls the correct request', function () {
+                return om.remove('id', 'session')
+                .then(function () {
+
+                    expect(request).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'remove',
+                        {id: 'id'},
+                        {session_id: 'session'}
+                    );
+                });
+            });
+        });
     });
 });
