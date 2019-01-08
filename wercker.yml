@@ -16,6 +16,7 @@ build:
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
 
+  after-steps:
     - slack-notifier:
       url: $SLACK_URL
       channel: announcements
