@@ -281,6 +281,25 @@ describe('ProjectManager', function () {
         });
       });
 
+      describe('getProjectsStats', function () {
+            it('calls the correct request', function () {
+
+                return psm.getProjectsStats(['1'], '2W')
+                  .then(function () {
+
+                    expect(request.signed).to.have.been.calledWithExactly(
+                        { origin: 'origin'},
+                        'ProjectManager',
+                        'getProjectsStats',
+                        {
+                            ids: ['1'], period: '2W'
+                        },
+                        {}
+                    );
+                });
+            });
+        });
+
       describe('changeStackInternal', function () {
         it('throws when ids is not an array', function () {
           expect(function () {
