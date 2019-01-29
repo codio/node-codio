@@ -130,5 +130,21 @@ describe('AccountManager', function () {
                 });
             });
         });
+
+        describe('getSessionStats', function () {
+            it('calls the correct request', function () {
+                return am.getSessionStats(['1'], '2W')
+                .then(function () {
+
+                    expect(request.signed).to.have.been.calledWith(
+                        {},
+                        'AccountManager',
+                        'getSessionStats',
+                        {ids: ['1'], period: '2W'},
+                        {}
+                    );
+                });
+            });
+        });
     });
 });
