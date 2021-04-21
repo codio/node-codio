@@ -21,7 +21,7 @@
     "bluebird": "3.3.1",
     "form-data": "1.0.0-rc3",
     "grunt-cli": "^1.2.0",
-    "lodash": "4.17.5",
+    "lodash": "4.17.19",
     "primus": "^7.2.2",
     "request": "^2.88.0",
     "sockjs": "0.3.20",
