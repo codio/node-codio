@@ -6,8 +6,7 @@
   "private": true,
   "scripts": {
     "test": "grunt test",
-    "lint": "grunt lint",
-    "preinstall": "npm install primus@7.2.2 --production"
+    "lint": "grunt lint"
   },
   "repository": {
     "type": "git",
