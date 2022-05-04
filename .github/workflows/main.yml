@@ -1,0 +1,64 @@
+name: node-codio
+on: push
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: npm install
+
+      - name: echo nodejs information
+        run: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+      - name: lint
+        run: |
+          npm run lint
+
+      - name: test
+        run: |
+          npm run test
+
+      - name: Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              attachments: [{
+              text: "<https://github.com/${{ github.repository }}/actions/runs/${{github.run_id}}|${{ github.workflow }} build> for ${{ github.repository }} by ${{ github.actor }} has ${{ job.status }} on branch ${{ github.ref }}",
+              color: "good"
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: success()
+
+      - name: Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {
+              attachments: [{
+              text: "<https://github.com/${{ github.repository }}/actions/runs/${{github.run_id}}|${{ github.workflow }} build> for ${{ github.repository }} by ${{ github.actor }} has ${{ job.status }} on branch ${{ github.ref }}",
+              color: "#FF0000"
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()

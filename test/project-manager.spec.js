@@ -255,7 +255,8 @@ describe('ProjectManager', function () {
                         {
                             projectId: 'id',
                             projectIds: undefined,
-                            isReadOnly: true
+                            isReadOnly: true,
+                            isReadOnlyContainer: undefined
                         },
                         {}
                     );
