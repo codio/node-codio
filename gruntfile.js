@@ -37,6 +37,7 @@
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-notify');
     grunt.registerTask('test', ['simplemocha:all']);
+    grunt.registerTask('lint', ['jshint']);
     return grunt.registerTask('default', ['jshint']);
   };
 

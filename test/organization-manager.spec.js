@@ -281,7 +281,7 @@ describe('OrganizationManager', function () {
 
                     expect(request).to.have.been.calledWith(
                         {},
-                        'AccountManager',
+                        'OrganizationManager',
                         'isOrganizationNameTaken',
                         {name: 'name'},
                         {}
@@ -296,7 +296,7 @@ describe('OrganizationManager', function () {
 
                     expect(request).to.have.been.calledWith(
                         {},
-                        'AccountManager',
+                        'OrganizationManager',
                         'remove',
                         {id: 'id'},
                         {session_id: 'session'}
