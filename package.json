@@ -22,7 +22,7 @@
     "form-data": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "lodash": "^4.17.21",
-    "primus": "^7.2.2",
+    "primus": "^7.3.5",
     "request": "^2.88.0",
     "sockjs": "0.3.20",
     "sockjs-client": "^1.3.0",
